@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyStateMachine : MonoBehaviour
@@ -19,18 +17,18 @@ public class EnemyStateMachine : MonoBehaviour
     public TurnState currentTurnState;
     
     private float _currentCooldown;
-    private float _maxCooldown = 5f;
+    private float _maxCooldown = 10f;
     
-    private Vector3 startPosition;
+    private Vector3 _startPosition;
 
-    private bool actionStarted;
+    private bool _actionStarted;
     public GameObject heroToAttack;
-    private float animationSpeed = 5f;
+    private float _animationSpeed = 10f;
 
     private void Start()
     {
         currentTurnState = TurnState.PROCESSING;
-        startPosition = transform.position;
+        _startPosition = transform.position;
     }
 
     private void Update()
@@ -75,12 +73,12 @@ public class EnemyStateMachine : MonoBehaviour
 
     private IEnumerator TimeForAction()
     {
-        if (actionStarted)
+        if (_actionStarted)
         {
             yield break;
         }
 
-        actionStarted = true;
+        _actionStarted = true;
         
         Vector3 heroPosition = new Vector3(heroToAttack.transform.position.x + 1.5f, heroToAttack.transform.position.y,
             heroToAttack.transform.position.z);
@@ -90,12 +88,12 @@ public class EnemyStateMachine : MonoBehaviour
         
         // Do damage
 
-        while (MoveTowardsTarget(startPosition)) yield return null;
+        while (MoveTowardsTarget(_startPosition)) yield return null;
 
         BattleStateMachine.Instance.performActionsList.RemoveAt(0);
 
         BattleStateMachine.Instance.battleState = BattleStateMachine.PerformAction.WAIT;
-        actionStarted = false;
+        _actionStarted = false;
         
         _currentCooldown = 0f;
         currentTurnState = TurnState.PROCESSING;
@@ -103,6 +101,6 @@ public class EnemyStateMachine : MonoBehaviour
 
     private bool MoveTowardsTarget(Vector3 target)
     {
-        return target != (transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * animationSpeed));
+        return target != (transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * _animationSpeed));
     }
 }
