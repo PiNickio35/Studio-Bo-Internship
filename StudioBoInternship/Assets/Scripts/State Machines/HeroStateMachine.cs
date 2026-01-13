@@ -1,34 +1,44 @@
 using System.Collections;
+using Base_Classes;
+using State_Machines;
 using UnityEngine;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
-public class EnemyStateMachine : MonoBehaviour
+public class HeroStateMachine : MonoBehaviour
 {
-    public BaseEnemy enemy;
-    
+    public BaseHero hero;
+
     public enum TurnState
     {
         PROCESSING,
-        CHOOSEACTION,
+        ADDTOLIST,
         WAITING,
+        SELECTING,
         ACTION,
         DEAD
     }
     
     public TurnState currentTurnState;
     
-    private float _currentCooldown;
-    private float _maxCooldown = 10f;
-    
-    private Vector3 _startPosition;
+    public Image progressBar;
 
+    [SerializeField] private GameObject selector;
+    
+    private float _currentCooldown;
+    private float _maxCooldown = 5f;
+
+    public GameObject enemyToAttack;
     private bool _actionStarted;
-    public GameObject heroToAttack;
+    private Vector3 _startPosition;
     private float _animationSpeed = 10f;
 
     private void Start()
     {
+        _currentCooldown = Random.Range(0f, 2.5f);
         currentTurnState = TurnState.PROCESSING;
-        _startPosition = transform.position;
+        _startPosition = this.transform.position;
+        selector.SetActive(false);
     }
 
     private void Update()
@@ -38,8 +48,8 @@ public class EnemyStateMachine : MonoBehaviour
             case (TurnState.PROCESSING):
                 UpdateProgressBar();
                 break;
-            case (TurnState.CHOOSEACTION):
-                ChooseAction();
+            case (TurnState.ADDTOLIST):
+                BattleStateMachine.Instance.heroesToManage.Add(this.gameObject);
                 currentTurnState = TurnState.WAITING;
                 break;
             case (TurnState.WAITING):
@@ -51,26 +61,18 @@ public class EnemyStateMachine : MonoBehaviour
                 break;
         }
     }
-    
+
     private void UpdateProgressBar()
     {
         _currentCooldown += Time.deltaTime;
+        progressBar.transform.localScale = new Vector3(Mathf.Clamp((_currentCooldown / _maxCooldown), 0, 1f),
+            progressBar.transform.localScale.y, progressBar.transform.localScale.z);
         if (_currentCooldown >= _maxCooldown)
         {
-            currentTurnState = TurnState.CHOOSEACTION;
+            currentTurnState = TurnState.ADDTOLIST;
         }
     }
-
-    private void ChooseAction()
-    {
-        HandleTurn myAttack = new HandleTurn();
-        myAttack.Attacker = enemy.name;
-        myAttack.Type = "Enemy";
-        myAttack.AttackerObject = this.gameObject;
-        myAttack.TargetObject = BattleStateMachine.Instance.heroesInBattle[UnityEngine.Random.Range(0, BattleStateMachine.Instance.heroesInBattle.Count)];
-        BattleStateMachine.Instance.CollectActions(myAttack);
-    }
-
+    
     private IEnumerator TimeForAction()
     {
         if (_actionStarted)
@@ -80,9 +82,9 @@ public class EnemyStateMachine : MonoBehaviour
 
         _actionStarted = true;
         
-        Vector3 heroPosition = new Vector3(heroToAttack.transform.position.x + 1.5f, heroToAttack.transform.position.y,
-            heroToAttack.transform.position.z);
-        while (MoveTowardsTarget(heroPosition)) yield return null;
+        Vector3 enemyPosition = new Vector3(enemyToAttack.transform.position.x - 1.5f, enemyToAttack.transform.position.y,
+            enemyToAttack.transform.position.z);
+        while (MoveTowardsTarget(enemyPosition)) yield return null;
 
         yield return new WaitForSeconds(0.5f);
         
@@ -102,5 +104,14 @@ public class EnemyStateMachine : MonoBehaviour
     private bool MoveTowardsTarget(Vector3 target)
     {
         return target != (transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * _animationSpeed));
+    }
+
+    public void TakeDamage(float damageAmount)
+    {
+        hero.currentHP -= damageAmount;
+        if (hero.currentHP <= 0)
+        {
+            currentTurnState = TurnState.DEAD;
+        }
     }
 }
