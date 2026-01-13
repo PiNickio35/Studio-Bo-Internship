@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Base_Classes
 {
     [System.Serializable]
@@ -6,5 +8,7 @@ namespace Base_Classes
         public int stamina;
         public int agility;
         public int intellect;
+        
+        public List<BaseAttack> magicAttacks = new List<BaseAttack>();
     }
 }

@@ -21,7 +21,7 @@ public class HeroStateMachine : MonoBehaviour
     
     public TurnState currentTurnState;
     
-    public Image progressBar;
+    private Image progressBar;
 
     [SerializeField] private GameObject selector;
     
@@ -32,9 +32,17 @@ public class HeroStateMachine : MonoBehaviour
     private bool _actionStarted;
     private Vector3 _startPosition;
     private float _animationSpeed = 10f;
+    
+    private bool _isAlive = true;
+
+    private HeroPanelStats stats;
+    [SerializeField] private GameObject heroPanel;
+    private Transform heroPanelSpacer;
 
     private void Start()
     {
+        heroPanelSpacer = GameObject.Find("BattleCanvas").transform.Find("HeroPanel").transform.Find("Spacer");
+        CreateHeroPanel();
         _currentCooldown = Random.Range(0f, 2.5f);
         currentTurnState = TurnState.PROCESSING;
         _startPosition = this.transform.position;
@@ -58,6 +66,23 @@ public class HeroStateMachine : MonoBehaviour
                 StartCoroutine(TimeForAction());
                 break;
             case (TurnState.DEAD):
+                if (!_isAlive) return;
+                this.gameObject.tag = "DeadHero";
+                BattleStateMachine.Instance.heroesInBattle.Remove(this.gameObject);
+                BattleStateMachine.Instance.heroesToManage.Remove(this.gameObject);
+                selector.SetActive(false);
+                BattleStateMachine.Instance.attackPanel.SetActive(false);
+                BattleStateMachine.Instance.enemySelectPanel.SetActive(false);
+                for (int i = 0; i < BattleStateMachine.Instance.performActionsList.Count; i++)
+                {
+                    if (BattleStateMachine.Instance.performActionsList[i].AttackerObject == this.gameObject)
+                    {
+                        BattleStateMachine.Instance.performActionsList.Remove(BattleStateMachine.Instance.performActionsList[i]);
+                    }
+                }
+                this.gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
+                BattleStateMachine.Instance.heroInput = BattleStateMachine.HeroGUI.ACTIVATE;
+                _isAlive = false;
                 break;
         }
     }
@@ -111,7 +136,25 @@ public class HeroStateMachine : MonoBehaviour
         hero.currentHP -= damageAmount;
         if (hero.currentHP <= 0)
         {
+            hero.currentHP = 0;
             currentTurnState = TurnState.DEAD;
         }
+        UpdateHeroPanel();
+    }
+
+    private void CreateHeroPanel()
+    {
+        heroPanel = Instantiate(heroPanel, heroPanelSpacer, false) as GameObject;
+        stats = heroPanel.GetComponentInChildren<HeroPanelStats>();
+        stats.heroName.text = hero.actorName;
+        stats.heroHP.text = "HP: " + hero.currentHP + "/" + hero.baseHP;
+        stats.heroMP.text = "MP: " + hero.currentMP + "/" + hero.baseMP;
+        progressBar = stats.progressbar;
+    }
+
+    private void UpdateHeroPanel()
+    {
+        stats.heroHP.text = "HP: " + hero.currentHP + "/" + hero.baseHP;
+        stats.heroMP.text = "MP: " + hero.currentMP + "/" + hero.baseMP;
     }
 }

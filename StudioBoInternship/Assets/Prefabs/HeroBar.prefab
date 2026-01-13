@@ -92,7 +92,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35.35
+  m_fontSize: 40
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -224,6 +224,7 @@ GameObject:
   - component: {fileID: 1035906856800442525}
   - component: {fileID: 12153783068397428}
   - component: {fileID: 3326597515934234680}
+  - component: {fileID: 7726659059134354621}
   m_Layer: 5
   m_Name: HeroBar
   m_TagString: Untagged
@@ -292,6 +293,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7726659059134354621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767346649569569775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed464736c7b3cc469de1d9633559779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HeroPanelStats
+  heroName: {fileID: 5122271855378917294}
+  heroHP: {fileID: 1514555450508307750}
+  heroMP: {fileID: 3388115401194521614}
+  progressbar: {fileID: 5049914946335444982}
 --- !u!1 &978184777567406695
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,7 +614,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35.85
+  m_fontSize: 40
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
