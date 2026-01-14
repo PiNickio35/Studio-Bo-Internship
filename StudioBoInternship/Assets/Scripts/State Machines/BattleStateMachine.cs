@@ -14,7 +14,10 @@ namespace State_Machines
         {
             WAIT,
             TAKEACTION,
-            PERFORMACTION
+            PERFORMACTION,
+            CHECKALIVE,
+            WIN,
+            LOSE
         }
 
         public PerformAction battleState;
@@ -47,6 +50,8 @@ namespace State_Machines
         public Transform magicSpacer;
         public GameObject actionButton;
         private List<GameObject> actionButtons = new List<GameObject>();
+        
+        private List<GameObject> enemyButtons = new List<GameObject>();
 
         private void Awake()
         {
@@ -105,6 +110,30 @@ namespace State_Machines
                     break;
                 case PerformAction.PERFORMACTION:
                     break;
+                case PerformAction.CHECKALIVE:
+                    if (heroesInBattle.Count < 1)
+                    {
+                        battleState = PerformAction.LOSE;
+                    }
+                    else if (enemiesInBattle.Count < 1)
+                    {
+                        battleState = PerformAction.WIN;
+                    }
+                    // TODO Something feels wrong here.
+                    else
+                    {
+                        ClearAttackPanel();
+                        heroInput = HeroGUI.ACTIVATE;
+                    }
+                    break;
+                case PerformAction.WIN:
+                    for (int i = 0; i < heroesInBattle.Count; i++)
+                    {
+                        heroesInBattle[i].GetComponent<HeroStateMachine>().currentTurnState = HeroStateMachine.TurnState.WAITING;
+                    }
+                    break;
+                case PerformAction.LOSE:
+                    break;
             }
 
             switch (heroInput)
@@ -132,8 +161,13 @@ namespace State_Machines
             performActionsList.Add(input);
         }
 
-        private void EnemyButtons()
+        public void EnemyButtons()
         {
+            foreach (GameObject enemySelectButton in enemyButtons)
+            {
+                Destroy(enemySelectButton);
+            }
+            enemyButtons.Clear();
             foreach (GameObject enemy in enemiesInBattle)
             {
                 GameObject newButton = Instantiate(enemyButton, spacer, false) as GameObject;
@@ -142,6 +176,7 @@ namespace State_Machines
                 TextMeshProUGUI buttonText = newButton.GetComponentInChildren<TextMeshProUGUI>();
                 buttonText.text = currentEnemy.enemy.actorName;
                 button.enemyPrefab = enemy;
+                enemyButtons.Add(newButton);
             }
         }
 
@@ -174,15 +209,22 @@ namespace State_Machines
         private void HeroInputDone()
         {
             performActionsList.Add(_heroChoice);
+            ClearAttackPanel();
+            heroesToManage[0].transform.Find("Selector").gameObject.SetActive(false);
+            heroesToManage.RemoveAt(0);
+            heroInput = HeroGUI.ACTIVATE;
+        }
+
+        private void ClearAttackPanel()
+        {
             enemySelectPanel.SetActive(false);
+            attackPanel.SetActive(false);
+            magicPanel.SetActive(false);
             foreach (var attackButton in actionButtons)
             {
                 Destroy(attackButton);
             }
             actionButtons.Clear();
-            heroesToManage[0].transform.Find("Selector").gameObject.SetActive(false);
-            heroesToManage.RemoveAt(0);
-            heroInput = HeroGUI.ACTIVATE;
         }
 
         private void CreateActionButtons()
@@ -208,6 +250,7 @@ namespace State_Machines
                         TextMeshProUGUI magicText = magicButton.transform.GetComponentInChildren<TextMeshProUGUI>();
                         magicText.text = magicAttack.attackName;
                         magicButton.GetComponent<Button>().onClick.AddListener(() => MagicInput(magicAttack));
+                        actionButtons.Add(magicButton);
                     }
                 });
                 actionButtons.Add(magicButton);

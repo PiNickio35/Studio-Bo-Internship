@@ -28,6 +28,8 @@ namespace State_Machines
         private bool _actionStarted;
         public GameObject heroToAttack;
         private float _animationSpeed = 10f;
+        
+        private bool _isAlive = true;
 
         private void Start()
         {
@@ -53,6 +55,29 @@ namespace State_Machines
                     StartCoroutine(TimeForAction());
                     break;
                 case (TurnState.DEAD):
+                    if (!_isAlive) return;
+                    this.gameObject.tag = "DeadEnemy";
+                    BattleStateMachine.Instance.enemiesInBattle.Remove(this.gameObject);
+                    selector.SetActive(false);
+                    if (BattleStateMachine.Instance.enemiesInBattle.Count > 0)
+                    {
+                        for (int i = 0; i < BattleStateMachine.Instance.performActionsList.Count; i++)
+                        {
+                            if (BattleStateMachine.Instance.performActionsList[i].AttackerObject == this.gameObject)
+                            {
+                                BattleStateMachine.Instance.performActionsList.Remove(BattleStateMachine.Instance.performActionsList[i]);
+                            }
+
+                            else if (BattleStateMachine.Instance.performActionsList[i].TargetObject == this.gameObject)
+                            {
+                                BattleStateMachine.Instance.performActionsList[i].TargetObject = BattleStateMachine.Instance.enemiesInBattle[Random.Range(0, BattleStateMachine.Instance.enemiesInBattle.Count)];
+                            }
+                        }
+                    }
+                    this.gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
+                    _isAlive = false;
+                    BattleStateMachine.Instance.EnemyButtons();
+                    BattleStateMachine.Instance.battleState = BattleStateMachine.PerformAction.CHECKALIVE;
                     break;
             }
         }
@@ -117,6 +142,16 @@ namespace State_Machines
             float calcDamage = enemy.currentATK +
                                BattleStateMachine.Instance.performActionsList[0].chosenAttack.attackDamage;
             heroToAttack.GetComponent<HeroStateMachine>().TakeDamage(calcDamage);
+        }
+
+        public void TakeDamage(float damage)
+        {
+            enemy.currentHP -= damage;
+            if (enemy.currentHP <= 0)
+            {
+                enemy.currentHP = 0;
+                currentTurnState = TurnState.DEAD;
+            }
         }
     }
 }
