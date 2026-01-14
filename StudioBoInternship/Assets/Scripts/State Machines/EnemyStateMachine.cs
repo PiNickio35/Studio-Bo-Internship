@@ -59,6 +59,7 @@ namespace State_Machines
                     this.gameObject.tag = "DeadEnemy";
                     BattleStateMachine.Instance.enemiesInBattle.Remove(this.gameObject);
                     selector.SetActive(false);
+                    // TODO Make sure this works properly and doesn't go out of range.
                     if (BattleStateMachine.Instance.enemiesInBattle.Count > 0)
                     {
                         for (int i = 0; i < BattleStateMachine.Instance.performActionsList.Count; i++)

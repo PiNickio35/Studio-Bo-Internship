@@ -52,16 +52,24 @@ namespace State_Machines
         private List<GameObject> actionButtons = new List<GameObject>();
         
         private List<GameObject> enemyButtons = new List<GameObject>();
+        
+        public List<Transform> spawnPoints = new List<Transform>();
 
         private void Awake()
         {
             Instance = this;
+            for (int i = 0; i < GameManager.Instance.enemyAmount; i++)
+            {
+                GameObject newEnemy = Instantiate(GameManager.Instance.enemiesToBattle[i], spawnPoints[i].position, Quaternion.identity);
+                newEnemy.name = newEnemy.GetComponent<EnemyStateMachine>().enemy.actorName + " " + (i + 1);
+                newEnemy.GetComponent<EnemyStateMachine>().enemy.actorName = newEnemy.name;
+                enemiesInBattle.Add(newEnemy);
+            }
         }
 
         private void Start()
         {
             battleState = PerformAction.WAIT;
-            enemiesInBattle.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
             heroesInBattle.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
             heroInput = HeroGUI.ACTIVATE;
             attackPanel.SetActive(false);
@@ -131,6 +139,10 @@ namespace State_Machines
                     {
                         heroesInBattle[i].GetComponent<HeroStateMachine>().currentTurnState = HeroStateMachine.TurnState.WAITING;
                     }
+
+                    GameManager.Instance.gameState = GameManager.GameStates.WORLD;
+                    GameManager.Instance.enemiesToBattle.Clear();
+                    GameManager.Instance.LoadSceneAfterBattle();
                     break;
                 case PerformAction.LOSE:
                     break;

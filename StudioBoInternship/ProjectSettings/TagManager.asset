@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - DeadHero
   - DeadEnemy
+  - Spawner
+  - EncounterRegion
   layers:
   - Default
   - TransparentFX
