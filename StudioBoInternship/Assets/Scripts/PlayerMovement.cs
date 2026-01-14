@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,18 +17,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        if (GameManager.Instance.nextSpawnPoint != "")
-        {
-            GameObject spawnPoint = GameObject.Find(GameManager.Instance.nextSpawnPoint);
-            transform.position = spawnPoint.transform.position;
-            
-            GameManager.Instance.nextSpawnPoint = "";
-        }
-        else if (GameManager.Instance.lastPlayerPosition != Vector3.zero)
-        {
-            transform.position = GameManager.Instance.lastPlayerPosition;
-            GameManager.Instance.lastPlayerPosition = Vector3.zero;
-        }
+        GameManager.Instance.gameObject.GetComponent<SaveController>().LoadGame();
+        GameManager.Instance.nextSpawnPoint = "";
+        GameManager.Instance.lastPlayerPosition = Vector3.zero;
     }
 
     private void Update()

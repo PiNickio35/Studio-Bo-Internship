@@ -16,7 +16,7 @@ public class PlayerCollisions : MonoBehaviour
 
         if (other.tag == "EncounterRegion")
         {
-            BaseRegion region = other.GetComponent<BaseRegion>();
+            BaseRegion region = other.GetComponent<RegionHolder>().currentRegion;
             GameManager.Instance.currentRegion = region;
         }
     }

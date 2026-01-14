@@ -101,6 +101,7 @@ public class GameManager : MonoBehaviour
 
     private void StartBattle()
     {
+        gameObject.GetComponent<SaveController>().SaveGame();
         enemyAmount = Random.Range(1, currentRegion.maxEnemies + 1);
         for (int i = 0; i < enemyAmount; i++)
         {

@@ -107,17 +107,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
   enemy:
     actorName: Enemy
-    baseHP: 0
-    currentHP: 0
+    baseHP: 10
+    currentHP: 10
     baseMP: 0
     currentMP: 0
-    baseATK: 0
-    currentATK: 0
-    baseDEF: 0
-    currentDEF: 0
+    baseATK: 5
+    currentATK: 5
+    baseDEF: 2
+    currentDEF: 2
+    actorAttacks:
+    - {fileID: 11400000, guid: 03d6a9da44f004f43bd3de437d7a9a40, type: 2}
     enemyType: 0
   currentTurnState: 0
-  selector: {fileID: 0}
+  selector: {fileID: 3836135166427871924}
   heroToAttack: {fileID: 0}
 --- !u!1001 &6308086349353143097
 PrefabInstance:
@@ -180,6 +182,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a0dab0050759de49aba764bef1a299a, type: 3}
+--- !u!1 &3836135166427871924 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7112982092966687117, guid: 6a0dab0050759de49aba764bef1a299a, type: 3}
+  m_PrefabInstance: {fileID: 6308086349353143097}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5069211423310753491 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1284554978440340970, guid: 6a0dab0050759de49aba764bef1a299a, type: 3}
