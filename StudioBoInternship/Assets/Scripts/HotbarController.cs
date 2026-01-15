@@ -60,6 +60,7 @@ public class HotbarController : MonoBehaviour
 
     public void SetHotbarItems(List<InventorySaveData> inventorySaveData)
     {
+        if (hotBarPanel == null) return;
         foreach (Transform child in hotBarPanel.transform)
         {
             Destroy(child.gameObject);

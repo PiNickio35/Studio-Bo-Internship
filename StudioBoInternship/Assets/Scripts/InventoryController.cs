@@ -4,13 +4,12 @@ using UnityEngine;
 public class InventoryController : MonoBehaviour
 {
     private ItemDictionary _itemDictionary;
-    
-    public GameObject inventoryPanel;
+
+    [SerializeField] private GameObject inventoryPanel;
     public GameObject slotPrefab;
     public int slotCount;
-    public GameObject[] itemPrefabs;
 
-    private void Start()
+    private void Awake()
     {
         _itemDictionary = FindFirstObjectByType<ItemDictionary>();
     }

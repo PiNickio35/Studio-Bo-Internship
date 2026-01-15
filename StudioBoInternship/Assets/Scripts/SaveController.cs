@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SaveController : MonoBehaviour
 {
@@ -13,8 +14,28 @@ public class SaveController : MonoBehaviour
     private void Awake()
     {
         _saveLocation = Path.Combine(Application.persistentDataPath, "saveData.json");
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
         _inventoryController = FindFirstObjectByType<InventoryController>();
         _hotbarController = FindFirstObjectByType<HotbarController>();
+    }
+
+    private void Start()
+    {
+        _inventoryController = FindFirstObjectByType<InventoryController>();
+        _hotbarController = FindFirstObjectByType<HotbarController>();
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     public void SaveGame()
