@@ -6,6 +6,9 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private Transform _originalParent;
     private CanvasGroup _canvasGroup;
 
+    public float minDropDistance = 2f;
+    public float maxDropDistance = 3f;
+
     private void Awake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
@@ -57,9 +60,38 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
         else
         {
-            transform.SetParent(_originalParent);
+            if (!IsWithinInventory(eventData.position))
+            {
+                DropItem(originalSlot);
+            }
+            else
+            {
+                transform.SetParent(_originalParent);
+            }
         }
         
         GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+    }
+
+    private bool IsWithinInventory(Vector2 mousePosition)
+    {
+        RectTransform inventoryRect = _originalParent.parent.GetComponent<RectTransform>();
+        return RectTransformUtility.RectangleContainsScreenPoint(inventoryRect, mousePosition);
+    }
+
+    private void DropItem(Slot originalSlot)
+    {
+        originalSlot.currentItem = null;
+        Transform playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        if (playerTransform == null)
+        {
+            Debug.LogError("No player found");
+            return;
+        }
+        Vector2 dropOffset = Random.insideUnitCircle.normalized * Random.Range(minDropDistance, maxDropDistance);
+        Vector2 dropPosition = (Vector2)playerTransform.position + dropOffset;
+        GameObject dropItem = Instantiate(gameObject, dropPosition, Quaternion.identity);
+        dropItem.GetComponent<BounceEffect>().StartBounce();
+        Destroy(gameObject);
     }
 }

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2020423774463956523}
   - component: {fileID: -410928436685837490}
   - component: {fileID: 6590074270972705356}
+  - component: {fileID: 7269937214267453789}
   m_Layer: 5
   m_Name: Item
   m_TagString: Item
@@ -104,6 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c15cd638c06ab41459c6d3f681c3618f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemDragHandler
+  minDropDistance: 2
+  maxDropDistance: 5
 --- !u!114 &2020423774463956523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
   ID: 0
+  Name: 
 --- !u!212 &-410928436685837490
 SpriteRenderer:
   serializedVersion: 2
@@ -212,3 +216,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: -0.0042968392, y: -0.038671374}
   m_Radius: 0.6460916
+--- !u!114 &7269937214267453789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7585468831618573255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0c3ec99e2ff054ab84515133f9cb66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BounceEffect
+  bounceHeight: 0.3
+  bounceDuration: 0.4
+  bounceCount: 2

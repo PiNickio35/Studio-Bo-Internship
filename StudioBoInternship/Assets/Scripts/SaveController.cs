@@ -37,6 +37,7 @@ public class SaveController : MonoBehaviour
             SaveData saveData = JsonUtility.FromJson<SaveData>(File.ReadAllText(_saveLocation));
             GameObject.FindGameObjectWithTag("Player").transform.position = saveData.playerPosition;
             FindFirstObjectByType<CinemachineConfiner2D>().BoundingShape2D = GameObject.Find(saveData.mapBoundary).GetComponent<PolygonCollider2D>();
+            MapControllerManual.Instance?.HighlightArea(saveData.mapBoundary);
             _inventoryController.SetInventoryItems(saveData.inventorySaveData);
             _hotbarController.SetHotbarItems(saveData.hotbarSaveData);
         }
