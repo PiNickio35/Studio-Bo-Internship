@@ -1,3 +1,5 @@
 References
 
+Game Code Library. (2025, December 18). Top Down Tutorial Series - Unity 2D [Course]. YouTube. https://www.youtube.com/playlist?list=PLaaFfzxy_80HtVvBnpK_IjSC8_Y9AOhuP
 pixel-boy. (2021, February 23). Ninja Adventure [Asset pack]. Itch. https://pixel-boy.itch.io/ninja-adventure-asset-pack
+xOctoManx. (2016, September 16). Unity Turn Based Battle / Combat [Playlist]. https://www.youtube.com/playlist?list=PLj0TSSTwoqAypUgag6HJoVZD-RmbpDtjF
