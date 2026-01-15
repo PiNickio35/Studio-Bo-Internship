@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -42,6 +43,9 @@ public class SaveController : MonoBehaviour
         else
         {
             SaveGame();
+            
+            _inventoryController.SetInventoryItems(new List<InventorySaveData>());
+            _hotbarController.SetHotbarItems(new List<InventorySaveData>());
         }
     }
 }
