@@ -70,10 +70,9 @@ namespace State_Machines
                     if (!_isAlive) return;
                     this.gameObject.tag = "DeadHero";
                     BattleStateMachine.Instance.heroesInBattle.Remove(this.gameObject);
-                    BattleStateMachine.Instance.heroesToManage.Remove(this.gameObject);
                     selector.SetActive(false);
-                    BattleStateMachine.Instance.attackPanel.SetActive(false);
-                    BattleStateMachine.Instance.enemySelectPanel.SetActive(false);
+                    // BattleStateMachine.Instance.attackPanel.SetActive(false);
+                    // BattleStateMachine.Instance.enemySelectPanel.SetActive(false);
                     // TODO Make sure this works properly and doesn't go out of range.
                     if (BattleStateMachine.Instance.heroesInBattle.Count > 0)
                     {
@@ -90,6 +89,15 @@ namespace State_Machines
                         }
                     }
                     this.gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
+                    if (BattleStateMachine.Instance.heroesToManage[0] == this.gameObject)
+                    {
+                        BattleStateMachine.Instance.heroesToManage.Remove(this.gameObject);
+                        BattleStateMachine.Instance.heroInput = BattleStateMachine.HeroGUI.ACTIVATE;
+                    }
+                    else
+                    {
+                        BattleStateMachine.Instance.heroesToManage.Remove(this.gameObject);
+                    }
                     BattleStateMachine.Instance.battleState = BattleStateMachine.PerformAction.CHECKALIVE;
                     _isAlive = false;
                     break;

@@ -43,7 +43,7 @@ namespace State_Machines
             switch (currentTurnState)
             {
                 case (TurnState.PROCESSING):
-                    UpdateProgressBar();
+                    UpdateProgress();
                     break;
                 case (TurnState.CHOOSEACTION):
                     ChooseAction();
@@ -83,7 +83,7 @@ namespace State_Machines
             }
         }
     
-        private void UpdateProgressBar()
+        private void UpdateProgress()
         {
             _currentCooldown += Time.deltaTime;
             if (_currentCooldown >= _maxCooldown)
@@ -125,7 +125,7 @@ namespace State_Machines
             while (MoveTowardsTarget(_startPosition)) yield return null;
 
             BattleStateMachine.Instance.performActionsList.RemoveAt(0);
-
+            if (BattleStateMachine.Instance.battleState == BattleStateMachine.PerformAction.LOSE) yield break;
             BattleStateMachine.Instance.battleState = BattleStateMachine.PerformAction.WAIT;
             _actionStarted = false;
         

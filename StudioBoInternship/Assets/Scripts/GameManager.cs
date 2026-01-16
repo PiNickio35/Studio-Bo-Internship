@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
 
     private void RandomEncounter()
     {
-        if (Random.Range(0, 100) <= 10)
+        if (Random.Range(0, 1000) <= 10)
         {
             gotAttacked = true;
         }

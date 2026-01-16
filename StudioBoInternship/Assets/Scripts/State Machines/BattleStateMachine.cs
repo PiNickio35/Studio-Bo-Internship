@@ -103,6 +103,12 @@ namespace State_Machines
                         }
                         if (!found)
                         {
+                            if (heroesInBattle.Count <= 0)
+                            {
+                                ESM.currentTurnState = EnemyStateMachine.TurnState.WAITING;
+                                battleState = PerformAction.LOSE;
+                                return;
+                            }
                             performActionsList[0].TargetObject = heroesInBattle[Random.Range(0, heroesInBattle.Count)];
                             ESM.heroToAttack = performActionsList[0].TargetObject;
                             ESM.currentTurnState = EnemyStateMachine.TurnState.ACTION;
@@ -127,12 +133,6 @@ namespace State_Machines
                     {
                         battleState = PerformAction.WIN;
                     }
-                    // TODO Something feels wrong here.
-                    else
-                    {
-                        ClearAttackPanel();
-                        heroInput = HeroGUI.ACTIVATE;
-                    }
                     break;
                 case PerformAction.WIN:
                     for (int i = 0; i < heroesInBattle.Count; i++)
@@ -145,6 +145,11 @@ namespace State_Machines
                     GameManager.Instance.LoadSceneAfterBattle();
                     break;
                 case PerformAction.LOSE:
+                    Debug.Log("The heroes have lost!");
+                    foreach (GameObject enemy in enemiesInBattle)
+                    {
+                        enemy.GetComponent<EnemyStateMachine>().currentTurnState = EnemyStateMachine.TurnState.WAITING;
+                    }
                     break;
             }
 
