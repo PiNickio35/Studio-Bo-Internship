@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +12,8 @@ public class MenuController : MonoBehaviour
 
     public void Menu(InputAction.CallbackContext context)
     {
+        if (!menuCanvas.activeSelf && PauseController.IsGamePaused) return;
         if (context.performed) menuCanvas.SetActive(!menuCanvas.activeSelf);
+        PauseController.SetPause(menuCanvas.activeSelf);
     }
 }

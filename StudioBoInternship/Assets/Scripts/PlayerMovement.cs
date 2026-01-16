@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float movementSpeed = 5f;
     private Vector2 _movementInput;
     private Vector3 _currentPosition, _lastPosition;
+    private bool _playingFootsteps = false;
+    public float footstepSpeed = 0.5f;
 
     private void Awake()
     {
@@ -24,7 +26,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (PauseController.IsGamePaused)
+        {
+            _rb.linearVelocity = Vector2.zero;
+            _animator.SetBool("isWalking", false);
+            StopFootSteps();
+            return;
+        }
         _rb.linearVelocity = _movementInput * movementSpeed;
+        _animator.SetBool("isWalking", _rb.linearVelocity.magnitude > 0);
+        if (_rb.linearVelocity.magnitude > 0 && !_playingFootsteps)
+        {
+            PlayFootStep();
+        }
+        else if (_rb.linearVelocity.magnitude == 0)
+        {
+            StopFootSteps();
+        }
         _currentPosition = transform.position;
         if (_currentPosition == _lastPosition)
         {
@@ -39,7 +57,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void Move(InputAction.CallbackContext context)
     {
-        _animator.SetBool("isWalking", true);
         if (context.canceled)
         {
             _animator.SetBool("isWalking", false);
@@ -49,5 +66,22 @@ public class PlayerMovement : MonoBehaviour
         _movementInput = context.ReadValue<Vector2>();
         _animator.SetFloat("InputX", _movementInput.x);
         _animator.SetFloat("InputY", _movementInput.y);
+    }
+
+    private void StartFootSteps()
+    {
+        _playingFootsteps = true;
+        InvokeRepeating(nameof(PlayFootStep), 0, footstepSpeed);
+    }
+
+    private void StopFootSteps()
+    {
+        _playingFootsteps = false;
+        CancelInvoke(nameof(PlayFootStep));
+    }
+
+    private void PlayFootStep()
+    {
+        SoundEffectManager.Play("Footsteps", true);
     }
 }
