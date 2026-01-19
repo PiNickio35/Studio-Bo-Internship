@@ -143,6 +143,7 @@ namespace State_Machines
                     GameManager.Instance.gameState = GameManager.GameStates.WORLD;
                     GameManager.Instance.enemiesToBattle.Clear();
                     GameManager.Instance.LoadSceneAfterBattle();
+                    battleState = PerformAction.WAIT;
                     break;
                 case PerformAction.LOSE:
                     Debug.Log("The heroes have lost!");

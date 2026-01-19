@@ -1,6 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using Base_Classes;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
@@ -27,6 +30,10 @@ public class GameManager : MonoBehaviour
     public bool gotAttacked;
 
     public int enemyAmount;
+    
+    private Animator _fadeAnim;
+    private TMP_Text _fadeText;
+    [SerializeField] private float fadeTime = 1f;
 
     public enum GameStates
     {
@@ -53,6 +60,8 @@ public class GameManager : MonoBehaviour
             GameObject player = Instantiate(heroPrefab, Vector3.zero, Quaternion.identity) as GameObject;
             player.name = "Player";
         }
+        _fadeAnim = GetComponentInChildren<Animator>();
+        _fadeText = GetComponentInChildren<TMP_Text>();
     }
 
     private void Update()
@@ -88,7 +97,8 @@ public class GameManager : MonoBehaviour
 
     public void LoadSceneAfterBattle()
     {
-        SceneManager.LoadScene(lastScene);
+        _fadeAnim.Play("FadeToMad");
+        StartCoroutine(DelayFadeMad());
     }
 
     private void RandomEncounter()
@@ -110,9 +120,39 @@ public class GameManager : MonoBehaviour
         lastPlayerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
         nextPlayerPosition = lastPlayerPosition;
         lastScene = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentRegion.battleScene);
+        _fadeAnim.Play("FadeToLaugh");
+        StartCoroutine(DelayFadeLaugh());
         isWalking = false;
         gotAttacked = false;
-        
+    }
+
+    private IEnumerator DelayFadeLaugh()
+    {
+        _fadeText.text = "Ha ha ha";
+        yield return new WaitForSeconds(fadeTime);
+        SceneManager.LoadScene(currentRegion.battleScene);
+        _fadeAnim.Play("FadeFromLaugh");
+    }
+
+    private IEnumerator DelayFadeMad()
+    {
+        int temp = Random.Range(0, 2);
+        switch (temp)
+        {
+            case 0:
+                _fadeText.text = "Fools...";
+                break;
+            case 1:
+                _fadeText.text = "This is meaningless.";
+                break;
+            case 2:
+                _fadeText.text = "You got lucky...";
+                break;
+            default:
+                break;
+        }
+        yield return new WaitForSeconds(fadeTime);
+        SceneManager.LoadScene(lastScene);
+        _fadeAnim.Play("FadeFromMad");
     }
 }
