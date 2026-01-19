@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49b631cb9c57b794da79a2ee308a201b, type: 3}
+  m_Name: Opening
+  m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
+  npcName: Opening
+  npcPortrait: {fileID: -4738311060596351350, guid: 3c677ff5533a9164a8a4f330eaea5c28, type: 3}
+  dialogueLines:
+  - The sun was shining majestically over the African savannah.
+  - Everything was in its right place in the natural order.
+  - Until...
+  - The warlock, Zorbak, started his spell to block out the sun.
+  - His end goal was to cast the world in darkness.
+  - The world was overrun by monsters at the behest of hismaster.
+  - Lucky for Africa, these heroes wasn't going to let that happen.
+  autoProgressLines: 
+  autoProgressDelay: 1.5
+  typingSpeed: 0.15
+  voiceSound: {fileID: 8300000, guid: e14193bbac441614c9aa3c0037fd3b2e, type: 3}
+  voicePitch: 0.5
