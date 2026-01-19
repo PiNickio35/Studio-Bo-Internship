@@ -1,7 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Base_Classes;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -41,14 +41,39 @@ public class SaveController : MonoBehaviour
         {
             playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position,
             mapBoundary = FindFirstObjectByType<CinemachineConfiner2D>().BoundingShape2D.gameObject.name,
+            sliderVolume = SoundEffectManager.Instance.sfxSlider.value,
             inventorySaveData = _inventoryController.GetInventoryItems(),
-            hotbarSaveData = _hotbarController.GetHotbarItems(),
-            chestSaveData = GetChestStates()
+            // hotbarSaveData = _hotbarController.GetHotbarItems(),
+            chestSaveData = GetChestStates(),
+            heroSaveData = GameManager.Instance.updatedHeroes
         };
         
         File.WriteAllText(_saveLocation, JsonUtility.ToJson(saveData));
     }
-
+    
+    public void LoadGame()
+    {
+        if (File.Exists(_saveLocation))
+        {
+            SaveData saveData = JsonUtility.FromJson<SaveData>(File.ReadAllText(_saveLocation));
+            SoundEffectManager.Instance.sfxSlider.value = saveData.sliderVolume;
+            GameObject.FindGameObjectWithTag("Player").transform.position = saveData.playerPosition;
+            FindFirstObjectByType<CinemachineConfiner2D>().BoundingShape2D = GameObject.Find(saveData.mapBoundary).GetComponent<PolygonCollider2D>();
+            MapControllerManual.Instance?.HighlightArea(saveData.mapBoundary);
+            _inventoryController.SetInventoryItems(saveData.inventorySaveData);
+            // _hotbarController.SetHotbarItems(saveData.hotbarSaveData);
+            LoadChestStates(saveData.chestSaveData);
+            GameManager.Instance.updatedHeroes = saveData.heroSaveData;
+        }
+        else
+        {
+            SaveGame();
+            
+            _inventoryController.SetInventoryItems(new List<InventorySaveData>());
+            // _hotbarController.SetHotbarItems(new List<InventorySaveData>());
+        }
+    }
+    
     private List<ChestSaveData> GetChestStates()
     {
         List<ChestSaveData> chestStates = new List<ChestSaveData>();
@@ -64,27 +89,6 @@ public class SaveController : MonoBehaviour
         }
         
         return chestStates;
-    }
-    
-    public void LoadGame()
-    {
-        if (File.Exists(_saveLocation))
-        {
-            SaveData saveData = JsonUtility.FromJson<SaveData>(File.ReadAllText(_saveLocation));
-            GameObject.FindGameObjectWithTag("Player").transform.position = saveData.playerPosition;
-            FindFirstObjectByType<CinemachineConfiner2D>().BoundingShape2D = GameObject.Find(saveData.mapBoundary).GetComponent<PolygonCollider2D>();
-            MapControllerManual.Instance?.HighlightArea(saveData.mapBoundary);
-            _inventoryController.SetInventoryItems(saveData.inventorySaveData);
-            _hotbarController.SetHotbarItems(saveData.hotbarSaveData);
-            LoadChestStates(saveData.chestSaveData);
-        }
-        else
-        {
-            SaveGame();
-            
-            _inventoryController.SetInventoryItems(new List<InventorySaveData>());
-            _hotbarController.SetHotbarItems(new List<InventorySaveData>());
-        }
     }
 
     private void LoadChestStates(List<ChestSaveData> chestStates)

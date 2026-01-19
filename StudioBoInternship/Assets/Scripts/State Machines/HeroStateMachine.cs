@@ -38,11 +38,9 @@ namespace State_Machines
 
         private HeroPanelStats stats;
         [SerializeField] private GameObject heroPanel;
-        private Transform heroPanelSpacer;
 
         private void Start()
         {
-            heroPanelSpacer = GameObject.Find("BattleCanvas").transform.Find("HeroPanel").transform.Find("Spacer");
             CreateHeroPanel();
             _currentCooldown = Random.Range(0f, 2.5f);
             currentTurnState = TurnState.PROCESSING;
@@ -173,9 +171,8 @@ namespace State_Machines
             enemyToAttack.GetComponent<EnemyStateMachine>().TakeDamage(calculatedDamage);
         }
 
-        private void CreateHeroPanel()
+        public void CreateHeroPanel()
         {
-            heroPanel = Instantiate(heroPanel, heroPanelSpacer, false) as GameObject;
             stats = heroPanel.GetComponentInChildren<HeroPanelStats>();
             stats.heroName.text = hero.actorName;
             stats.heroHP.text = "HP: " + hero.currentHP + "/" + hero.baseHP;

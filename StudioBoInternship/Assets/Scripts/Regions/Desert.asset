@@ -15,4 +15,4 @@ MonoBehaviour:
   maxEnemies: 4
   battleScene: CombatScene
   possibleEnemies:
-  - {fileID: 7905279685538133007, guid: fac2bc1919205574292f2f010aa692bf, type: 3}
+  - {fileID: 7905279685538133007, guid: 75eed38c55054054cbb533297bfe8ee6, type: 3}

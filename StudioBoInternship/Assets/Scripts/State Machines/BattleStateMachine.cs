@@ -70,7 +70,13 @@ namespace State_Machines
         private void Start()
         {
             battleState = PerformAction.WAIT;
-            heroesInBattle.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
+            // heroesInBattle.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
+            for (int i = 0; i < heroesInBattle.Count; i++)
+            {
+                HeroStateMachine statsHolder = heroesInBattle[i].GetComponent<HeroStateMachine>();
+                statsHolder.hero = GameManager.Instance.updatedHeroes[i];
+                statsHolder.CreateHeroPanel();
+            }
             heroInput = HeroGUI.ACTIVATE;
             attackPanel.SetActive(false);
             magicPanel.SetActive(false);

@@ -1651,7 +1651,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &497484532
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8438,6 +8438,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c4f8b860bd1c6f42b22875290b386d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  updatedHeroes:
+  - actorName: Sono
+    baseHP: 50
+    currentHP: 50
+    baseMP: 5
+    currentMP: 5
+    baseATK: 10
+    currentATK: 10
+    baseDEF: 2
+    currentDEF: 2
+    actorAttacks:
+    - {fileID: 11400000, guid: 03d6a9da44f004f43bd3de437d7a9a40, type: 2}
+    stamina: 5
+    agility: 5
+    intellect: 5
+    magicAttacks:
+    - {fileID: 11400000, guid: eed002f9f05e4a64fa1f9ef13fd36e2b, type: 2}
+  - actorName: May
+    baseHP: 20
+    currentHP: 20
+    baseMP: 10
+    currentMP: 10
+    baseATK: 5
+    currentATK: 5
+    baseDEF: 5
+    currentDEF: 5
+    actorAttacks:
+    - {fileID: 11400000, guid: 03d6a9da44f004f43bd3de437d7a9a40, type: 2}
+    stamina: 5
+    agility: 5
+    intellect: 5
+    magicAttacks:
+    - {fileID: 11400000, guid: eed002f9f05e4a64fa1f9ef13fd36e2b, type: 2}
+    - {fileID: 11400000, guid: 26083502fce13f14d9a0384a6adf1823, type: 2}
+  - actorName: Andani
+    baseHP: 75
+    currentHP: 75
+    baseMP: 0
+    currentMP: 0
+    baseATK: 5
+    currentATK: 5
+    baseDEF: 5
+    currentDEF: 5
+    actorAttacks:
+    - {fileID: 11400000, guid: 03d6a9da44f004f43bd3de437d7a9a40, type: 2}
+    stamina: 5
+    agility: 5
+    intellect: 5
+    magicAttacks: []
   enemiesToBattle: []
   currentRegion: {fileID: 0}
   nextSpawnPoint: 
@@ -11313,41 +11362,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &2024277255 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2636950051598704841, guid: 494c7803627b7904cb7ab3ba61b1c553, type: 3}
-  m_PrefabInstance: {fileID: 1123322444014072751}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2024277264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2024277255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteResolver
-  m_CategoryHash: 0.009161512
-  m_labelHash: 1.3971405e-28
-  m_SpriteKey: 0
-  m_SpriteHash: 163368403
---- !u!114 &2024277265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2024277255}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteLibrary
-  m_Library: []
-  m_SpriteLibraryAsset: {fileID: 7108339969198208228, guid: de050292c8697f44b93cf2ab2964963b, type: 3}
 --- !u!1 &2032813894
 GameObject:
   m_ObjectHideFlags: 0
@@ -11598,10 +11612,8 @@ GameObject:
   - component: {fileID: 2087245183}
   - component: {fileID: 2087245182}
   - component: {fileID: 2087245186}
-  - component: {fileID: 2087245185}
-  - component: {fileID: 2087245184}
   - component: {fileID: 2087245187}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EncounterZone
   m_TagString: EncounterRegion
   m_Icon: {fileID: 0}
@@ -12221,8 +12233,8 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!66 &2087245184
-CompositeCollider2D:
+--- !u!19719996 &2087245186
+TilemapCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -12254,92 +12266,6 @@ CompositeCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
-  m_GenerationType: 0
-  m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 2087245186}
-    m_ColliderPaths:
-    - - X: 60000000
-        Y: 140000000
-      - X: -60000000
-        Y: 140000000
-      - X: -60000000
-        Y: 100000000
-      - X: 60000000
-        Y: 100000000
-  m_CompositePaths:
-    m_Paths:
-    - - {x: 5.999971, y: 10}
-      - {x: 5.999971, y: 14}
-      - {x: -6, y: 13.999971}
-      - {x: -5.999971, y: 10}
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0.00005
-  m_UseDelaunayMesh: 0
-  m_CompositeGameObject: {fileID: 2087245180}
---- !u!50 &2087245185
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2087245180}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!19719996 &2087245186
-TilemapCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2087245180}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 1
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
@@ -12441,18 +12367,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1401376433812792650, guid: 494c7803627b7904cb7ab3ba61b1c553, type: 3}
-      propertyPath: footstepSpeed
-      value: 1.25
-      objectReference: {fileID: 0}
     - target: {fileID: 2636950051598704841, guid: 494c7803627b7904cb7ab3ba61b1c553, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5359276866765480704, guid: 494c7803627b7904cb7ab3ba61b1c553, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 4723107735738678597, guid: 061e8b7d85497a941b91283cac2c56c4, type: 3}
     - target: {fileID: 7840381676429201762, guid: 494c7803627b7904cb7ab3ba61b1c553, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -12500,13 +12418,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2636950051598704841, guid: 494c7803627b7904cb7ab3ba61b1c553, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2024277265}
-    - targetCorrespondingSourceObject: {fileID: 2636950051598704841, guid: 494c7803627b7904cb7ab3ba61b1c553, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2024277264}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 494c7803627b7904cb7ab3ba61b1c553, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

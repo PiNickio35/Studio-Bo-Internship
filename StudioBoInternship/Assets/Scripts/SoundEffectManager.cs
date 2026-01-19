@@ -11,7 +11,7 @@ public class SoundEffectManager : MonoBehaviour
     private static AudioSource _randomPitchAudioSource;
     private static AudioSource _voiceAudioSource;
     private static SoundEffectLibrary _soundEffectLibrary;
-    [SerializeField] private Slider sfxSlider;
+    public Slider sfxSlider;
 
     private void Awake()
     {
@@ -33,7 +33,12 @@ public class SoundEffectManager : MonoBehaviour
 
     private void Start()
     {
+        sfxSlider = GameObject.Find("SFXSlider").GetComponent<Slider>();
         sfxSlider.onValueChanged.AddListener(delegate { OnValueChanged(); });
+        foreach (AudioSource audioSource in GetComponents<AudioSource>())
+        {
+            audioSource.volume = sfxSlider.value;
+        }
     }
 
     public static void Play(string soundName, bool randomPitch = false)

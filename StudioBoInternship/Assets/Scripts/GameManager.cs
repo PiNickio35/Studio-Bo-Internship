@@ -10,6 +10,8 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+
+    public List<BaseHero> updatedHeroes = new List<BaseHero>();
     
     public List<GameObject> enemiesToBattle = new List<GameObject>();
     
