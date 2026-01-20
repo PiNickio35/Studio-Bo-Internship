@@ -23,7 +23,6 @@ public class SoundEffectManager : MonoBehaviour
             _randomPitchAudioSource = audioSources[1];
             _voiceAudioSource = audioSources[2];
             _soundEffectLibrary = GetComponent<SoundEffectLibrary>();
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -33,7 +32,6 @@ public class SoundEffectManager : MonoBehaviour
 
     private void Start()
     {
-        sfxSlider = GameObject.Find("SFXSlider").GetComponent<Slider>();
         sfxSlider.onValueChanged.AddListener(delegate { OnValueChanged(); });
         foreach (AudioSource audioSource in GetComponents<AudioSource>())
         {

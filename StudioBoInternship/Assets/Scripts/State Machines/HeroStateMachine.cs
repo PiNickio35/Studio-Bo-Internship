@@ -15,7 +15,7 @@ namespace State_Machines
             PROCESSING,
             ADDTOLIST,
             WAITING,
-            SELECTING,
+            DEFENDING,
             ACTION,
             DEAD
         }
@@ -60,6 +60,9 @@ namespace State_Machines
                     currentTurnState = TurnState.WAITING;
                     break;
                 case (TurnState.WAITING):
+                    break;
+                case (TurnState.DEFENDING):
+                    // TODO Add defence.
                     break;
                 case (TurnState.ACTION):
                     StartCoroutine(TimeForAction());

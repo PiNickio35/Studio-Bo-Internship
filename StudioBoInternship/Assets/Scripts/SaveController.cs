@@ -26,7 +26,7 @@ public class SaveController : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         _inventoryController = FindFirstObjectByType<InventoryController>();
-        _hotbarController = FindFirstObjectByType<HotbarController>();
+        // _hotbarController = FindFirstObjectByType<HotbarController>();
         chests = FindObjectsByType<Chest>(FindObjectsSortMode.None);
     }
 

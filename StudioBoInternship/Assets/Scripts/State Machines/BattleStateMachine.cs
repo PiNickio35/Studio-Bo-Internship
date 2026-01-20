@@ -22,9 +22,9 @@ namespace State_Machines
 
         public PerformAction battleState;
     
-        public List<HandleTurn> performActionsList = new List<HandleTurn>();
-        public List<GameObject> heroesInBattle = new List<GameObject>();
-        public List<GameObject> enemiesInBattle = new List<GameObject>();
+        public List<HandleTurn> performActionsList = new();
+        public List<GameObject> heroesInBattle = new();
+        public List<GameObject> enemiesInBattle = new();
     
         public enum HeroGUI
         {
@@ -36,7 +36,7 @@ namespace State_Machines
         }
         public HeroGUI heroInput;
     
-        public List<GameObject> heroesToManage = new List<GameObject>();
+        public List<GameObject> heroesToManage = new();
         private HandleTurn _heroChoice;
 
         public GameObject enemyButton;
@@ -49,11 +49,11 @@ namespace State_Machines
         public Transform actionSpacer;
         public Transform magicSpacer;
         public GameObject actionButton;
-        private List<GameObject> actionButtons = new List<GameObject>();
+        private List<GameObject> _actionButtons = new();
         
-        private List<GameObject> enemyButtons = new List<GameObject>();
+        private List<GameObject> _enemyButtons = new();
         
-        public List<Transform> spawnPoints = new List<Transform>();
+        public List<Transform> spawnPoints = new();
 
         private void Awake()
         {
@@ -122,9 +122,16 @@ namespace State_Machines
                     }
                     else if (performActionsList[0].Type == "Hero")
                     {
-                        HeroStateMachine HSM = performer.GetComponent<HeroStateMachine>();
-                        HSM.enemyToAttack = performActionsList[0].TargetObject;
-                        HSM.currentTurnState = HeroStateMachine.TurnState.ACTION;
+                        if (performActionsList[0].isDefending)
+                        {
+                            // TODO Add temporary defence.
+                        }
+                        else
+                        {
+                            HeroStateMachine HSM = performer.GetComponent<HeroStateMachine>();
+                            HSM.enemyToAttack = performActionsList[0].TargetObject;
+                            HSM.currentTurnState = HeroStateMachine.TurnState.ACTION;
+                        }
                     }
                     battleState = PerformAction.PERFORMACTION;
                     break;
@@ -187,11 +194,11 @@ namespace State_Machines
 
         public void EnemyButtons()
         {
-            foreach (GameObject enemySelectButton in enemyButtons)
+            foreach (GameObject enemySelectButton in _enemyButtons)
             {
                 Destroy(enemySelectButton);
             }
-            enemyButtons.Clear();
+            _enemyButtons.Clear();
             foreach (GameObject enemy in enemiesInBattle)
             {
                 GameObject newButton = Instantiate(enemyButton, spacer, false) as GameObject;
@@ -200,16 +207,17 @@ namespace State_Machines
                 TextMeshProUGUI buttonText = newButton.GetComponentInChildren<TextMeshProUGUI>();
                 buttonText.text = currentEnemy.enemy.actorName;
                 button.enemyPrefab = enemy;
-                enemyButtons.Add(newButton);
+                _enemyButtons.Add(newButton);
             }
         }
 
-        public void Input1()
+        public void AttackInput()
         {
             _heroChoice.Attacker = heroesToManage[0].name;
             _heroChoice.AttackerObject = heroesToManage[0];
             _heroChoice.Type = "Hero";
             _heroChoice.chosenAttack = heroesToManage[0].GetComponent<HeroStateMachine>().hero.actorAttacks[0];
+            _heroChoice.isDefending = false;
             attackPanel.SetActive(false);
             enemySelectPanel.SetActive(true);
         }
@@ -220,11 +228,28 @@ namespace State_Machines
             _heroChoice.AttackerObject = heroesToManage[0];
             _heroChoice.Type = "Hero";
             _heroChoice.chosenAttack = chosenMagicAttack;
+            _heroChoice.isDefending = false;
             magicPanel.SetActive(false);
             enemySelectPanel.SetActive(true);
         }
 
-        public void Input2(GameObject chosenEnemy)
+        public void DefendInput()
+        {
+            _heroChoice.Attacker = heroesToManage[0].name;
+            _heroChoice.AttackerObject = null;
+            _heroChoice.Type = "Hero";
+            _heroChoice.chosenAttack = null;
+            _heroChoice.isDefending = true;
+            attackPanel.SetActive(false);
+            heroInput = HeroGUI.DONE;
+        }
+
+        public void ItemInput()
+        {
+            
+        }
+
+        public void EnemySelectionInput(GameObject chosenEnemy)
         {
             _heroChoice.TargetObject = chosenEnemy;
             heroInput = HeroGUI.DONE;
@@ -244,11 +269,11 @@ namespace State_Machines
             enemySelectPanel.SetActive(false);
             attackPanel.SetActive(false);
             magicPanel.SetActive(false);
-            foreach (var attackButton in actionButtons)
+            foreach (var attackButton in _actionButtons)
             {
                 Destroy(attackButton);
             }
-            actionButtons.Clear();
+            _actionButtons.Clear();
         }
 
         private void CreateActionButtons()
@@ -256,8 +281,8 @@ namespace State_Machines
             GameObject attackButton = Instantiate(actionButton, actionSpacer, false);
             TextMeshProUGUI attackButtonText = attackButton.transform.GetComponentInChildren<TextMeshProUGUI>();
             attackButtonText.text = "Attack";
-            attackButton.GetComponent<Button>().onClick.AddListener(() => Input1());
-            actionButtons.Add(attackButton);
+            attackButton.GetComponent<Button>().onClick.AddListener(() => AttackInput());
+            _actionButtons.Add(attackButton);
             
             if (heroesToManage[0].GetComponent<HeroStateMachine>().hero.magicAttacks.Count > 0)
             {
@@ -274,11 +299,23 @@ namespace State_Machines
                         TextMeshProUGUI magicText = magicButton.transform.GetComponentInChildren<TextMeshProUGUI>();
                         magicText.text = magicAttack.attackName;
                         magicButton.GetComponent<Button>().onClick.AddListener(() => MagicInput(magicAttack));
-                        actionButtons.Add(magicButton);
+                        _actionButtons.Add(magicButton);
                     }
                 });
-                actionButtons.Add(magicButton);
+                _actionButtons.Add(magicButton);
             }
+            
+            GameObject defendButton = Instantiate(actionButton, actionSpacer, false);
+            TextMeshProUGUI defendButtonText = defendButton.transform.GetComponentInChildren<TextMeshProUGUI>();
+            defendButtonText.text = "Defend";
+            defendButton.GetComponent<Button>().onClick.AddListener(() => DefendInput());
+            _actionButtons.Add(defendButton);
+            
+            GameObject itemButton = Instantiate(actionButton, actionSpacer, false);
+            TextMeshProUGUI itemButtonText = itemButton.transform.GetComponentInChildren<TextMeshProUGUI>();
+            itemButtonText.text = "Item";
+            itemButton.GetComponent<Button>().onClick.AddListener(() => ItemInput());
+            _actionButtons.Add(itemButton);
         }
     }
 }

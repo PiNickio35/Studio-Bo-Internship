@@ -8,7 +8,7 @@ public class EnemySelectButton : MonoBehaviour
 
     public void SelectEnemy()
     {
-        BattleStateMachine.Instance.Input2(enemyPrefab);
+        BattleStateMachine.Instance.EnemySelectionInput(enemyPrefab);
     }
 
     public void ToggleSelector()
