@@ -8,6 +8,7 @@ public class InventoryController : MonoBehaviour
     [SerializeField] private GameObject inventoryPanel;
     public GameObject slotPrefab;
     public int slotCount;
+    private int _selectedSlot;
 
     private void Awake()
     {
@@ -73,5 +74,10 @@ public class InventoryController : MonoBehaviour
                 }
             }
         }
+    }
+    
+    public void SetSelectedSlot(int slotIndex)
+    {
+        _selectedSlot = slotIndex;
     }
 }

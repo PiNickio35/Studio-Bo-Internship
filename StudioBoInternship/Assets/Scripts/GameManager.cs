@@ -157,4 +157,9 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(lastScene);
         _fadeAnim.Play("FadeFromMad");
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
