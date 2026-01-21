@@ -8439,53 +8439,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   updatedHeroes:
-  - actorName: Sono
-    baseHP: 50
-    currentHP: 50
-    baseMP: 5
-    currentMP: 5
-    baseATK: 10
-    currentATK: 10
-    baseDEF: 2
-    currentDEF: 2
-    actorAttacks:
+  - ActorName: Sono
+    BaseHp: 40
+    CurrentHp: 40
+    BaseMp: 5
+    CurrentMp: 5
+    Attack: 10
+    Defence: 4
+    ActorAttacks:
     - {fileID: 11400000, guid: 03d6a9da44f004f43bd3de437d7a9a40, type: 2}
-    stamina: 5
-    agility: 5
-    intellect: 5
+    strength: 4
+    agility: 6
+    wisdom: 2
     magicAttacks:
     - {fileID: 11400000, guid: eed002f9f05e4a64fa1f9ef13fd36e2b, type: 2}
-  - actorName: May
-    baseHP: 20
-    currentHP: 20
-    baseMP: 10
-    currentMP: 10
-    baseATK: 5
-    currentATK: 5
-    baseDEF: 5
-    currentDEF: 5
-    actorAttacks:
+  - ActorName: May
+    BaseHp: 25
+    CurrentHp: 25
+    BaseMp: 10
+    CurrentMp: 10
+    Attack: 2
+    Defence: 2
+    ActorAttacks:
     - {fileID: 11400000, guid: 03d6a9da44f004f43bd3de437d7a9a40, type: 2}
-    stamina: 5
-    agility: 5
-    intellect: 5
+    strength: 2
+    agility: 4
+    wisdom: 8
     magicAttacks:
     - {fileID: 11400000, guid: eed002f9f05e4a64fa1f9ef13fd36e2b, type: 2}
     - {fileID: 11400000, guid: 26083502fce13f14d9a0384a6adf1823, type: 2}
-  - actorName: Andani
-    baseHP: 75
-    currentHP: 75
-    baseMP: 0
-    currentMP: 0
-    baseATK: 5
-    currentATK: 5
-    baseDEF: 5
-    currentDEF: 5
-    actorAttacks:
+  - ActorName: Andani
+    BaseHp: 70
+    CurrentHp: 70
+    BaseMp: 0
+    CurrentMp: 0
+    Attack: 6
+    Defence: 8
+    ActorAttacks:
     - {fileID: 11400000, guid: 03d6a9da44f004f43bd3de437d7a9a40, type: 2}
-    stamina: 5
-    agility: 5
-    intellect: 5
+    strength: 6
+    agility: 2
+    wisdom: 0
     magicAttacks: []
   enemiesToBattle: []
   currentRegion: {fileID: 0}

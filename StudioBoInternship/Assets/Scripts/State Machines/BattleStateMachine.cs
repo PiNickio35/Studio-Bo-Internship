@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Base_Classes;
 using TMPro;
@@ -30,8 +31,6 @@ namespace State_Machines
         {
             ACTIVATE,
             WAITING,
-            INPUT1,
-            INPUT2,
             DONE
         }
         public HeroGUI heroInput;
@@ -45,6 +44,9 @@ namespace State_Machines
         public GameObject attackPanel;
         public GameObject enemySelectPanel;
         public GameObject magicPanel;
+
+        [SerializeField] private GameObject noMagicPanel;
+        [SerializeField] private SpriteRenderer battleBackground;
 
         public Transform actionSpacer;
         public Transform magicSpacer;
@@ -61,10 +63,11 @@ namespace State_Machines
             for (int i = 0; i < GameManager.Instance.enemyAmount; i++)
             {
                 GameObject newEnemy = Instantiate(GameManager.Instance.enemiesToBattle[i], spawnPoints[i].position, Quaternion.identity);
-                newEnemy.name = newEnemy.GetComponent<EnemyStateMachine>().enemy.actorName + " " + (i + 1);
-                newEnemy.GetComponent<EnemyStateMachine>().enemy.actorName = newEnemy.name;
+                newEnemy.name = newEnemy.GetComponent<EnemyStateMachine>().enemy.ActorName + " " + (i + 1);
+                newEnemy.GetComponent<EnemyStateMachine>().enemy.ActorName = newEnemy.name;
                 enemiesInBattle.Add(newEnemy);
             }
+            battleBackground.sprite = GameManager.Instance.currentRegion.battleBackground;
         }
 
         private void Start()
@@ -205,7 +208,7 @@ namespace State_Machines
                 EnemySelectButton button = newButton.GetComponent<EnemySelectButton>();
                 EnemyStateMachine currentEnemy = enemy.GetComponent<EnemyStateMachine>();
                 TextMeshProUGUI buttonText = newButton.GetComponentInChildren<TextMeshProUGUI>();
-                buttonText.text = currentEnemy.enemy.actorName;
+                buttonText.text = currentEnemy.enemy.ActorName;
                 button.enemyPrefab = enemy;
                 _enemyButtons.Add(newButton);
             }
@@ -213,10 +216,13 @@ namespace State_Machines
 
         public void AttackInput()
         {
+            BaseHero hero = heroesToManage[0].GetComponent<HeroStateMachine>().hero;
             _heroChoice.Attacker = heroesToManage[0].name;
             _heroChoice.AttackerObject = heroesToManage[0];
             _heroChoice.Type = "Hero";
-            _heroChoice.chosenAttack = heroesToManage[0].GetComponent<HeroStateMachine>().hero.actorAttacks[0];
+            _heroChoice.chosenAttack = hero.ActorAttacks[0];
+            hero.Attack = 
+                Mathf.Max(Mathf.Floor(hero.strength/4), 1f) * hero.ActorAttacks[0].attackDamage;
             _heroChoice.isDefending = false;
             attackPanel.SetActive(false);
             enemySelectPanel.SetActive(true);
@@ -224,10 +230,19 @@ namespace State_Machines
 
         public void MagicInput(BaseAttack chosenMagicAttack)
         {
+            BaseHero hero = heroesToManage[0].GetComponent<HeroStateMachine>().hero;
+            if (chosenMagicAttack.attackCost < hero.CurrentMp)
+            {
+                StartCoroutine(NotEnoughMagic());
+                return;
+            }
             _heroChoice.Attacker = heroesToManage[0].name;
             _heroChoice.AttackerObject = heroesToManage[0];
             _heroChoice.Type = "Hero";
             _heroChoice.chosenAttack = chosenMagicAttack;
+            hero.Attack = 
+                Mathf.Max(Mathf.Floor(hero.wisdom/4), 1f) * chosenMagicAttack.attackDamage;
+            hero.CurrentMp -= chosenMagicAttack.attackCost;
             _heroChoice.isDefending = false;
             magicPanel.SetActive(false);
             enemySelectPanel.SetActive(true);
@@ -316,6 +331,15 @@ namespace State_Machines
             itemButtonText.text = "Item";
             itemButton.GetComponent<Button>().onClick.AddListener(() => ItemInput());
             _actionButtons.Add(itemButton);
+        }
+
+        private IEnumerator NotEnoughMagic()
+        {
+            ClearAttackPanel();
+            heroInput = HeroGUI.ACTIVATE;
+            noMagicPanel.SetActive(true);
+            yield return new WaitForSeconds(1f);
+            noMagicPanel.SetActive(false);
         }
     }
 }

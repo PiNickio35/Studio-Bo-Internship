@@ -95,11 +95,11 @@ namespace State_Machines
         private void ChooseAction()
         {
             HandleTurn myAttack = new HandleTurn();
-            myAttack.Attacker = enemy.actorName;
+            myAttack.Attacker = enemy.ActorName;
             myAttack.Type = "Enemy";
             myAttack.AttackerObject = this.gameObject;
             myAttack.TargetObject = BattleStateMachine.Instance.heroesInBattle[Random.Range(0, BattleStateMachine.Instance.heroesInBattle.Count)];
-            myAttack.chosenAttack = enemy.actorAttacks[Random.Range(0, enemy.actorAttacks.Count)];
+            myAttack.chosenAttack = enemy.ActorAttacks[Random.Range(0, enemy.ActorAttacks.Count)];
             Debug.Log(this.gameObject.name + " has chosen " + myAttack.chosenAttack.attackName + " and does " + myAttack.chosenAttack.attackDamage + " damage!");
             
             BattleStateMachine.Instance.CollectActions(myAttack);
@@ -140,17 +140,17 @@ namespace State_Machines
 
         private void DoDamage()
         {
-            float calcDamage = enemy.currentATK +
-                               BattleStateMachine.Instance.performActionsList[0].chosenAttack.attackDamage;
-            heroToAttack.GetComponent<HeroStateMachine>().TakeDamage(calcDamage);
+            enemy.Attack = BattleStateMachine.Instance.performActionsList[0].chosenAttack.attackDamage;
+            heroToAttack.GetComponent<HeroStateMachine>().TakeDamage(enemy.Attack);
         }
 
         public void TakeDamage(float damage)
         {
-            enemy.currentHP -= damage;
-            if (enemy.currentHP <= 0)
+            damage = Mathf.Max(damage - enemy.Defence, 0);
+            enemy.CurrentHp -= damage;
+            if (enemy.CurrentHp <= 0)
             {
-                enemy.currentHP = 0;
+                enemy.CurrentHp = 0;
                 currentTurnState = TurnState.DEAD;
             }
         }

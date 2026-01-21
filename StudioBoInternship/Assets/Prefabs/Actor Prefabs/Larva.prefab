@@ -79,8 +79,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1818560627
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 2275809482824616478, guid: 335c566f11cc1504f85a5a66eb06fc80, type: 3}
@@ -106,16 +106,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
   enemy:
-    actorName: Larva
-    baseHP: 10
-    currentHP: 10
-    baseMP: 0
-    currentMP: 0
-    baseATK: 5
-    currentATK: 5
-    baseDEF: 2
-    currentDEF: 2
-    actorAttacks:
+    ActorName: Larva
+    BaseHp: 10
+    CurrentHp: 10
+    BaseMp: 0
+    CurrentMp: 0
+    Attack: 5
+    Defence: 0
+    ActorAttacks:
     - {fileID: 11400000, guid: 03d6a9da44f004f43bd3de437d7a9a40, type: 2}
     enemyType: 0
   currentTurnState: 0

@@ -158,10 +158,11 @@ namespace State_Machines
 
         public void TakeDamage(float damageAmount)
         {
-            hero.currentHP -= damageAmount;
-            if (hero.currentHP <= 0)
+            damageAmount = Mathf.Max(damageAmount - Mathf.Floor(hero.agility/8) - hero.Defence, 0);
+            hero.CurrentHp -= damageAmount;
+            if (hero.CurrentHp <= 0)
             {
-                hero.currentHP = 0;
+                hero.CurrentHp = 0;
                 currentTurnState = TurnState.DEAD;
             }
             UpdateHeroPanel();
@@ -169,24 +170,22 @@ namespace State_Machines
 
         private void DoDamage()
         {
-            float calculatedDamage = hero.currentATK +
-                                     BattleStateMachine.Instance.performActionsList[0].chosenAttack.attackDamage;
-            enemyToAttack.GetComponent<EnemyStateMachine>().TakeDamage(calculatedDamage);
+            enemyToAttack.GetComponent<EnemyStateMachine>().TakeDamage(hero.Attack);
         }
 
         public void CreateHeroPanel()
         {
             stats = heroPanel.GetComponentInChildren<HeroPanelStats>();
-            stats.heroName.text = hero.actorName;
-            stats.heroHP.text = "HP: " + hero.currentHP + "/" + hero.baseHP;
-            stats.heroMP.text = "MP: " + hero.currentMP + "/" + hero.baseMP;
+            stats.heroName.text = hero.ActorName;
+            stats.heroHP.text = "HP: " + hero.CurrentHp + "/" + hero.BaseHp;
+            stats.heroMP.text = "MP: " + hero.CurrentMp + "/" + hero.BaseMp;
             progressBar = stats.progressbar;
         }
 
         private void UpdateHeroPanel()
         {
-            stats.heroHP.text = "HP: " + hero.currentHP + "/" + hero.baseHP;
-            stats.heroMP.text = "MP: " + hero.currentMP + "/" + hero.baseMP;
+            stats.heroHP.text = "HP: " + hero.CurrentHp + "/" + hero.BaseHp;
+            stats.heroMP.text = "MP: " + hero.CurrentMp + "/" + hero.BaseMp;
         }
     }
 }

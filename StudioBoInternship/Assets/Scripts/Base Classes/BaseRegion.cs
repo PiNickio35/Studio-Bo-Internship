@@ -8,6 +8,7 @@ namespace Base_Classes
     {
         public int maxEnemies = 4;
         public string battleScene;
+        public Sprite battleBackground;
         public List<GameObject> possibleEnemies = new List<GameObject>();
     }
 }

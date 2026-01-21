@@ -6,5 +6,6 @@ Game Code Library. (2025, December 18). Top Down Tutorial Series - Unity 2D [Cou
 GAMER247. (2021, July 2). sol [Image]. Itch. https://gamer247.itch.io/sou
 grinnch. (2024, April 11). Pixel Sun [Image]. Itch. https://grinnch.itch.io/pixel-sun
 KingKelpo. (2019, December 30). The Sunset [Asset pack]. Itch. https://kingkelp.itch.io/parallax-sunset
+Nidhoggn. (2017, November 28). Backgrounds 3. Open Game Art. https://opengameart.org/content/backgrounds-3
 pixel-boy. (2021, February 23). Ninja Adventure [Asset pack]. Itch. https://pixel-boy.itch.io/ninja-adventure-asset-pack
 xOctoManx. (2016, September 16). Unity Turn Based Battle / Combat [Playlist]. https://www.youtube.com/playlist?list=PLj0TSSTwoqAypUgag6HJoVZD-RmbpDtjF

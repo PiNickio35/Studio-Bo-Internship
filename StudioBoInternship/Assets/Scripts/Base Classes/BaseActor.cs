@@ -4,20 +4,18 @@ namespace Base_Classes
 {
     public class BaseActor
     {
-        public string actorName;
+        public string ActorName;
     
-        public float baseHP;
-        public float currentHP;
+        public float BaseHp;
+        public float CurrentHp;
     
-        public float baseMP;
-        public float currentMP;
+        public float BaseMp;
+        public float CurrentMp;
     
-        public float baseATK;
-        public float currentATK;
+        public float Attack;
     
-        public float baseDEF;
-        public float currentDEF;
+        public float Defence;
         
-        public List<BaseAttack> actorAttacks = new List<BaseAttack>();
+        public List<BaseAttack> ActorAttacks = new List<BaseAttack>();
     }
 }
