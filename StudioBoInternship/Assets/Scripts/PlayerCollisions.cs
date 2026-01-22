@@ -1,7 +1,5 @@
-using System;
 using Base_Classes;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class PlayerCollisions : MonoBehaviour
 {

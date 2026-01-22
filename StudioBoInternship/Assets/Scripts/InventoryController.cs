@@ -79,5 +79,6 @@ public class InventoryController : MonoBehaviour
         GameObject selectedItem = inventoryPanel.GetComponentsInChildren<Slot>()[_selectedSlot].currentItem;
         selectedItem.GetComponent<Item>().UseItem(characterChoice);
         itemChoiceBar.SetActive(false);
+        PlayerPage.Instance.UpdateStats();
     }
 }
