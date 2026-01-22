@@ -104,6 +104,11 @@ public class GameManager : MonoBehaviour
         StartCoroutine(DelayFadeMad());
     }
 
+    public void GoToMenu()
+    {
+        SceneManager.LoadScene("MenuScene");
+    }
+
     private void RandomEncounter()
     {
         if (Random.Range(0, 1000) <= 10)
@@ -158,6 +163,51 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(fadeTime);
         SceneManager.LoadScene(lastScene);
         _fadeAnim.Play("FadeFromMad");
+    }
+
+    public void LevelUp(string candidate, int level)
+    {
+        for (int i = 0; i < updatedHeroes.Count; i++)
+        {
+            if (updatedHeroes[i].ActorName == candidate)
+            {
+                var levelLibrary = LevelLibrary.Instance;
+                switch (candidate)
+                {
+                    case "Sono":
+                        updatedHeroes[i].BaseHp = levelLibrary.sonoHp[level];
+                        updatedHeroes[i].BaseMp = levelLibrary.sonoMp[level];
+                        updatedHeroes[i].Defence = levelLibrary.sonoDefence[level];
+                        if (levelLibrary.sonoAttacks[level] != null) updatedHeroes[i].ActorAttacks[0] = levelLibrary.sonoAttacks[level];
+                        if (levelLibrary.sonoMagic[level] != null) updatedHeroes[i].magicAttacks.Add(levelLibrary.sonoMagic[level]);
+                        updatedHeroes[i].strength = levelLibrary.sonoStrength[level];
+                        updatedHeroes[i].agility = levelLibrary.sonoAgility[level];
+                        updatedHeroes[i].wisdom = levelLibrary.sonoWisdom[level];
+                        break;
+                    case "May":
+                        updatedHeroes[i].BaseHp = levelLibrary.mayHp[level];
+                        updatedHeroes[i].BaseMp = levelLibrary.mayMp[level];
+                        updatedHeroes[i].Defence = levelLibrary.mayDefence[level];
+                        if (levelLibrary.mayAttacks[level] != null) updatedHeroes[i].ActorAttacks[0] = levelLibrary.mayAttacks[level];
+                        if (levelLibrary.mayMagic[level] != null) updatedHeroes[i].magicAttacks.Add(levelLibrary.mayMagic[level]);
+                        updatedHeroes[i].strength = levelLibrary.mayStrength[level];
+                        updatedHeroes[i].agility = levelLibrary.mayAgility[level];
+                        updatedHeroes[i].wisdom = levelLibrary.mayWisdom[level];
+                        break;
+                    case "Andani":
+                        updatedHeroes[i].BaseHp = levelLibrary.andaniHp[level];
+                        updatedHeroes[i].BaseMp = levelLibrary.andaniMp[level];
+                        updatedHeroes[i].Defence = levelLibrary.andaniDefence[level];
+                        if (levelLibrary.andaniAttacks[level] != null) updatedHeroes[i].ActorAttacks[0] = levelLibrary.andaniAttacks[level];
+                        updatedHeroes[i].strength = levelLibrary.andaniStrength[level];
+                        updatedHeroes[i].agility = levelLibrary.andaniAgility[level];
+                        updatedHeroes[i].wisdom = levelLibrary.andaniWisdom[level];
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 
     public void QuitGame()

@@ -77,6 +77,7 @@ namespace State_Machines
                     }
                     this.gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
                     _isAlive = false;
+                    BattleStateMachine.Instance.experiencePool += enemy.experienceGiven;
                     BattleStateMachine.Instance.EnemyButtons();
                     BattleStateMachine.Instance.battleState = BattleStateMachine.PerformAction.CHECKALIVE;
                     break;
@@ -98,6 +99,11 @@ namespace State_Machines
             myAttack.Attacker = enemy.ActorName;
             myAttack.Type = "Enemy";
             myAttack.AttackerObject = this.gameObject;
+            if (BattleStateMachine.Instance.heroesInBattle.Count == 0)
+            {
+                currentTurnState = TurnState.WAITING;
+                return;
+            }
             myAttack.TargetObject = BattleStateMachine.Instance.heroesInBattle[Random.Range(0, BattleStateMachine.Instance.heroesInBattle.Count)];
             myAttack.chosenAttack = enemy.ActorAttacks[Random.Range(0, enemy.ActorAttacks.Count)];
             Debug.Log(this.gameObject.name + " has chosen " + myAttack.chosenAttack.attackName + " and does " + myAttack.chosenAttack.attackDamage + " damage!");
@@ -125,7 +131,11 @@ namespace State_Machines
             while (MoveTowardsTarget(_startPosition)) yield return null;
 
             BattleStateMachine.Instance.performActionsList.RemoveAt(0);
-            if (BattleStateMachine.Instance.battleState == BattleStateMachine.PerformAction.LOSE) yield break;
+            if (BattleStateMachine.Instance.battleState == BattleStateMachine.PerformAction.LOSE)
+            {
+                currentTurnState = TurnState.WAITING;
+                yield break;
+            }
             BattleStateMachine.Instance.battleState = BattleStateMachine.PerformAction.WAIT;
             _actionStarted = false;
         

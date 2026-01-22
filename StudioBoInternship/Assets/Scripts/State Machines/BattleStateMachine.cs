@@ -21,6 +21,8 @@ namespace State_Machines
             LOSE
         }
 
+        private int[] _levelThresholds = { 0, 100, 200, 400, 600, 800, 1000, 1200, 1500, 1800, 2200, 2600, 3000, 3500, 4000, 5000, 6000, 7000, 8000, 9000, 10000 };
+
         public PerformAction battleState;
     
         public List<HandleTurn> performActionsList = new();
@@ -47,6 +49,7 @@ namespace State_Machines
         public GameObject heroSelectionPanel;
         public GameObject magicPanel;
         public GameObject itemPanel;
+        public GameObject losePanel;
 
         [SerializeField] private GameObject noMagicPanel;
         [SerializeField] private SpriteRenderer battleBackground;
@@ -60,6 +63,8 @@ namespace State_Machines
         private List<GameObject> _enemyButtons = new();
         
         public List<Transform> spawnPoints = new();
+
+        public int experiencePool;
 
         private void Awake()
         {
@@ -168,11 +173,13 @@ namespace State_Machines
                     for (int i = 0; i < heroesInBattle.Count; i++)
                     {
                         heroesInBattle[i].GetComponent<HeroStateMachine>().currentTurnState = HeroStateMachine.TurnState.WAITING;
+                        LevelUp(heroesInBattle[i].GetComponent<HeroStateMachine>().hero);
                     }
                     for (int i = 0; i < GameManager.Instance.updatedHeroes.Count; i++)
                     {
                         GameManager.Instance.updatedHeroes[i] = heroesAfterBattle[i].GetComponent<HeroStateMachine>().hero;
                     }
+                    
                     SaveController.Instance.SaveBattle();
                     GameManager.Instance.gameState = GameManager.GameStates.WORLD;
                     GameManager.Instance.enemiesToBattle.Clear();
@@ -181,10 +188,12 @@ namespace State_Machines
                     break;
                 case PerformAction.LOSE:
                     Debug.Log("The heroes have lost!");
+                    if (losePanel.activeSelf) break;
                     foreach (GameObject enemy in enemiesInBattle)
                     {
                         enemy.GetComponent<EnemyStateMachine>().currentTurnState = EnemyStateMachine.TurnState.WAITING;
                     }
+                    losePanel.SetActive(true);
                     break;
             }
 
@@ -387,6 +396,26 @@ namespace State_Machines
             noMagicPanel.SetActive(true);
             yield return new WaitForSeconds(1f);
             noMagicPanel.SetActive(false);
+        }
+        
+        private void LevelUp(BaseHero hero)
+        {
+            hero.experience += experiencePool;
+            if (hero.level == 20)
+            {
+                return;
+            }
+            if (hero.experience >= _levelThresholds[hero.level])
+            {
+                hero.experience = 0;
+                hero.level++;
+                GameManager.Instance.LevelUp(hero.ActorName, hero.level);
+            }
+        }
+
+        public void CallMenu()
+        {
+            GameManager.Instance.GoToMenu();
         }
     }
 }

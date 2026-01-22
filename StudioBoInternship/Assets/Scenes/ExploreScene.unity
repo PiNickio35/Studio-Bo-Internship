@@ -10816,6 +10816,7 @@ GameObject:
   - component: {fileID: 1083549184}
   - component: {fileID: 1083549186}
   - component: {fileID: 1083549187}
+  - component: {fileID: 1083549188}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -10845,6 +10846,8 @@ MonoBehaviour:
     Defence: 4
     ActorAttacks:
     - {fileID: 11400000, guid: 03d6a9da44f004f43bd3de437d7a9a40, type: 2}
+    experience: 0
+    level: 0
     strength: 4
     agility: 6
     wisdom: 2
@@ -10859,6 +10862,8 @@ MonoBehaviour:
     Defence: 2
     ActorAttacks:
     - {fileID: 11400000, guid: 03d6a9da44f004f43bd3de437d7a9a40, type: 2}
+    experience: 0
+    level: 0
     strength: 2
     agility: 4
     wisdom: 8
@@ -10874,6 +10879,8 @@ MonoBehaviour:
     Defence: 8
     ActorAttacks:
     - {fileID: 11400000, guid: 03d6a9da44f004f43bd3de437d7a9a40, type: 2}
+    experience: 0
+    level: 0
     strength: 6
     agility: 2
     wisdom: 0
@@ -10934,6 +10941,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a9294377f6e4724aade839c35a63905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseController
+--- !u!114 &1083549188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083549183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a43c6b76b72fe78419179e3ff64dde3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelLibrary
 --- !u!1 &1123216120
 GameObject:
   m_ObjectHideFlags: 0

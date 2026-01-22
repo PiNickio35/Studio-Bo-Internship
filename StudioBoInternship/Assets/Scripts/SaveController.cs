@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Base_Classes;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -69,6 +70,10 @@ public class SaveController : MonoBehaviour
             MapControllerManual.Instance?.HighlightArea(saveData.mapBoundary);
             _inventoryController.SetInventoryItems(saveData.inventorySaveData);
             LoadChestStates(saveData.chestSaveData);
+            foreach (BaseHero hero in GameManager.Instance.updatedHeroes)
+            {
+                if (hero.CurrentHp <= 0) hero.CurrentHp = 1;
+            }
             GameManager.Instance.updatedHeroes = saveData.heroSaveData;
             PlayerPage.Instance.UpdateStats();
         }
