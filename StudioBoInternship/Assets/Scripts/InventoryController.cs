@@ -6,6 +6,7 @@ public class InventoryController : MonoBehaviour
     private ItemDictionary _itemDictionary;
 
     [SerializeField] private GameObject inventoryPanel;
+    [SerializeField] private GameObject itemChoiceBar;
     public GameObject slotPrefab;
     public int slotCount;
     private int _selectedSlot;
@@ -42,7 +43,7 @@ public class InventoryController : MonoBehaviour
             if (slot.currentItem != null)
             {
                 Item item = slot.currentItem.GetComponent<Item>();
-                invData.Add(new InventorySaveData { itemID = item.ID, slotIndex = slotTransform.GetSiblingIndex()});
+                invData.Add(new InventorySaveData { itemID = item.itemID, slotIndex = slotTransform.GetSiblingIndex()});
             }
         }
         return invData;
@@ -50,16 +51,6 @@ public class InventoryController : MonoBehaviour
     
     public void SetInventoryItems(List<InventorySaveData> inventorySaveData)
     {
-        foreach (Transform child in inventoryPanel.transform)
-        {
-            Destroy(child.gameObject);
-        }
-
-        for (int i = 0; i < slotCount; i++)
-        {
-            Instantiate(slotPrefab, inventoryPanel.transform);
-        }
-
         foreach (InventorySaveData data in inventorySaveData)
         {
             if (data.slotIndex < slotCount)
@@ -78,6 +69,15 @@ public class InventoryController : MonoBehaviour
     
     public void SetSelectedSlot(int slotIndex)
     {
+        if (inventoryPanel.GetComponentsInChildren<Slot>()[slotIndex].currentItem == null) return;
         _selectedSlot = slotIndex;
+        itemChoiceBar.SetActive(true);
+    }
+
+    public void UseItem(int characterChoice)
+    {
+        GameObject selectedItem = inventoryPanel.GetComponentsInChildren<Slot>()[_selectedSlot].currentItem;
+        selectedItem.GetComponent<Item>().UseItem(characterChoice);
+        itemChoiceBar.SetActive(false);
     }
 }

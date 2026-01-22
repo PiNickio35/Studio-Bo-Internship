@@ -10,7 +10,6 @@ public class SaveController : MonoBehaviour
 {
     private string _saveLocation;
     private InventoryController _inventoryController;
-    private HotbarController _hotbarController;
     private Chest[] chests;
 
     private void Awake()

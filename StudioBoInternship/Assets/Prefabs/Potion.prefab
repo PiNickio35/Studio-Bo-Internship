@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2398876693282605281
+--- !u!1001 &886430894595229233
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11,15 +11,19 @@ PrefabInstance:
     - target: {fileID: -410928436685837490, guid: ea5e8bbb932fd0a439821b925d1248bd, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1511180519, guid: 22f683438b2783c4b929dfa1b71ce1c0, type: 3}
+      objectReference: {fileID: 1930091582, guid: 22f683438b2783c4b929dfa1b71ce1c0, type: 3}
     - target: {fileID: 2020423774463956523, guid: ea5e8bbb932fd0a439821b925d1248bd, type: 3}
       propertyPath: Name
-      value: Ether
+      value: Potion
+      objectReference: {fileID: 0}
+    - target: {fileID: 2020423774463956523, guid: ea5e8bbb932fd0a439821b925d1248bd, type: 3}
+      propertyPath: itemName
+      value: Potion
       objectReference: {fileID: 0}
     - target: {fileID: 2352512263097970521, guid: ea5e8bbb932fd0a439821b925d1248bd, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1511180519, guid: 22f683438b2783c4b929dfa1b71ce1c0, type: 3}
+      objectReference: {fileID: 1930091582, guid: 22f683438b2783c4b929dfa1b71ce1c0, type: 3}
     - target: {fileID: 4199692792604714065, guid: ea5e8bbb932fd0a439821b925d1248bd, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -82,11 +86,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4199692792604714065, guid: ea5e8bbb932fd0a439821b925d1248bd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 2227
+      value: 960
       objectReference: {fileID: 0}
     - target: {fileID: 4199692792604714065, guid: ea5e8bbb932fd0a439821b925d1248bd, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 32
+      value: 540
       objectReference: {fileID: 0}
     - target: {fileID: 4199692792604714065, guid: ea5e8bbb932fd0a439821b925d1248bd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -102,7 +106,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7585468831618573255, guid: ea5e8bbb932fd0a439821b925d1248bd, type: 3}
       propertyPath: m_Name
-      value: StaminaPotion
+      value: Potion
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
