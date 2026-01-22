@@ -7,12 +7,21 @@ using UnityEngine.SceneManagement;
 
 public class SaveController : MonoBehaviour
 {
+    public static SaveController Instance;
     private string _saveLocation;
     private InventoryController _inventoryController;
     private Chest[] chests;
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         _saveLocation = Path.Combine(Application.persistentDataPath, "saveData.json");
     }
 
@@ -31,6 +40,8 @@ public class SaveController : MonoBehaviour
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
+    
+    
 
     public void SaveGame()
     {
@@ -67,6 +78,14 @@ public class SaveController : MonoBehaviour
             
             _inventoryController.SetInventoryItems(new List<InventorySaveData>());
         }
+    }
+
+    public void SaveBattle()
+    {
+        SaveData saveData = JsonUtility.FromJson<SaveData>(File.ReadAllText(_saveLocation));
+        saveData.inventorySaveData = GameManager.Instance.availableItems;
+        saveData.heroSaveData = GameManager.Instance.updatedHeroes;
+        File.WriteAllText(_saveLocation, JsonUtility.ToJson(saveData));
     }
     
     private List<ChestSaveData> GetChestStates()

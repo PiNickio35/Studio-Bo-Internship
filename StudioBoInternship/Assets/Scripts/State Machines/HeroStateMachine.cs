@@ -16,6 +16,7 @@ namespace State_Machines
             ADDTOLIST,
             WAITING,
             DEFENDING,
+            ITEM,
             ACTION,
             DEAD
         }
@@ -35,6 +36,8 @@ namespace State_Machines
         private float _animationSpeed = 10f;
     
         private bool _isAlive = true;
+
+        public int chosenItem;
 
         private HeroPanelStats stats;
         [SerializeField] private GameObject heroPanel;
@@ -62,7 +65,10 @@ namespace State_Machines
                 case (TurnState.WAITING):
                     break;
                 case (TurnState.DEFENDING):
-                    // TODO Add defence.
+                    StartCoroutine(TimeForDefence());
+                    break;
+                case TurnState.ITEM:
+                    StartCoroutine(TimeForItem());
                     break;
                 case (TurnState.ACTION):
                     StartCoroutine(TimeForAction());
@@ -107,7 +113,7 @@ namespace State_Machines
 
         private void UpdateProgressBar()
         {
-            _currentCooldown += Time.deltaTime;
+            _currentCooldown += Time.deltaTime + (hero.agility/1000);
             progressBar.transform.localScale = new Vector3(Mathf.Clamp((_currentCooldown / _maxCooldown), 0, 1f),
                 progressBar.transform.localScale.y, progressBar.transform.localScale.z);
             if (_currentCooldown >= _maxCooldown)
@@ -151,6 +157,84 @@ namespace State_Machines
             _actionStarted = false;
         }
 
+        private IEnumerator TimeForDefence()
+        {
+            if (_actionStarted)
+            {
+                yield break;
+            }
+
+            _actionStarted = true;
+
+            StartCoroutine(UpDefence());
+
+            BattleStateMachine.Instance.performActionsList.RemoveAt(0);
+
+            if (BattleStateMachine.Instance.battleState != BattleStateMachine.PerformAction.WIN &&
+                BattleStateMachine.Instance.battleState != BattleStateMachine.PerformAction.LOSE)
+            {
+                BattleStateMachine.Instance.battleState = BattleStateMachine.PerformAction.WAIT;
+                _currentCooldown = 0f;
+                currentTurnState = TurnState.PROCESSING;
+            }
+            else
+            {
+                currentTurnState = TurnState.WAITING;
+            }
+            _actionStarted = false;
+        }
+
+        private IEnumerator TimeForItem()
+        {
+            if (_actionStarted)
+            {
+                yield break;
+            }
+
+            _actionStarted = true;
+
+            foreach (InventorySaveData item in GameManager.Instance.availableItems)
+            {
+                if (item.itemID != chosenItem) continue;
+                BaseHero targetHero = enemyToAttack.GetComponent<HeroStateMachine>().hero;
+                switch (chosenItem)
+                {
+                    case 0:
+                        targetHero.CurrentHp = Mathf.Min(targetHero.BaseHp, targetHero.CurrentHp + 100);
+                        break;
+                    case 1:
+                        targetHero.CurrentMp = Mathf.Min(targetHero.BaseMp, targetHero.CurrentMp + 20);
+                        break;
+                    default:
+                        break;
+                }
+                GameManager.Instance.availableItems.Remove(item);
+                break;
+            }
+
+            BattleStateMachine.Instance.performActionsList.RemoveAt(0);
+
+            if (BattleStateMachine.Instance.battleState != BattleStateMachine.PerformAction.WIN &&
+                BattleStateMachine.Instance.battleState != BattleStateMachine.PerformAction.LOSE)
+            {
+                BattleStateMachine.Instance.battleState = BattleStateMachine.PerformAction.WAIT;
+                _currentCooldown = 0f;
+                currentTurnState = TurnState.PROCESSING;
+            }
+            else
+            {
+                currentTurnState = TurnState.WAITING;
+            }
+            _actionStarted = false;
+        }
+
+        private IEnumerator UpDefence()
+        {
+            hero.Defence += 5f;
+            yield return new WaitForSeconds(5f);
+            hero.Defence -= 5f;
+        }
+
         private bool MoveTowardsTarget(Vector3 target)
         {
             return target != (transform.position = Vector3.MoveTowards(transform.position, target, Time.deltaTime * _animationSpeed));
@@ -158,7 +242,7 @@ namespace State_Machines
 
         public void TakeDamage(float damageAmount)
         {
-            damageAmount = Mathf.Max(damageAmount - Mathf.Floor(hero.agility/8) - hero.Defence, 0);
+            damageAmount = Mathf.Max(damageAmount - Mathf.Floor(hero.agility/8) - hero.Defence, 1);
             hero.CurrentHp -= damageAmount;
             if (hero.CurrentHp <= 0)
             {

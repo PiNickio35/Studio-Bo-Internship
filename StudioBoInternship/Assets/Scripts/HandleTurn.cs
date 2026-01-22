@@ -5,6 +5,8 @@ using UnityEngine;
 public class HandleTurn
 {
     public bool isDefending;
+    public bool isUsingItem;
+    public int itemToUse;
     public string Attacker;
     public string Type;
     public GameObject AttackerObject;

@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.gameObject.GetComponent<SaveController>().LoadGame();
+        SaveController.Instance.LoadGame();
         GameManager.Instance.nextSpawnPoint = "";
         GameManager.Instance.lastPlayerPosition = Vector3.zero;
     }
@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         _animator.SetBool("isWalking", _rb.linearVelocity.magnitude > 0);
         if (_rb.linearVelocity.magnitude > 0 && !_playingFootsteps)
         {
-            PlayFootStep();
+            StartFootSteps();
         }
         else if (_rb.linearVelocity.magnitude == 0)
         {

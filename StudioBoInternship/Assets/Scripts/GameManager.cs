@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     public List<BaseHero> updatedHeroes = new List<BaseHero>();
     
+    public List<InventorySaveData> availableItems; 
+    
     public List<GameObject> enemiesToBattle = new List<GameObject>();
     
     public BaseRegion currentRegion;
@@ -118,6 +120,7 @@ public class GameManager : MonoBehaviour
         {
             enemiesToBattle.Add(currentRegion.possibleEnemies[Random.Range(0, currentRegion.possibleEnemies.Count)]);
         }
+        availableItems = InventoryController.Instance.GetInventoryItems();
         lastPlayerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
         nextPlayerPosition = lastPlayerPosition;
         lastScene = SceneManager.GetActiveScene().name;

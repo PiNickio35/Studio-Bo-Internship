@@ -24,6 +24,7 @@ namespace State_Machines
         public PerformAction battleState;
     
         public List<HandleTurn> performActionsList = new();
+        public List<GameObject> heroesAfterBattle = new(); 
         public List<GameObject> heroesInBattle = new();
         public List<GameObject> enemiesInBattle = new();
     
@@ -43,13 +44,16 @@ namespace State_Machines
 
         public GameObject attackPanel;
         public GameObject enemySelectPanel;
+        public GameObject heroSelectionPanel;
         public GameObject magicPanel;
+        public GameObject itemPanel;
 
         [SerializeField] private GameObject noMagicPanel;
         [SerializeField] private SpriteRenderer battleBackground;
 
         public Transform actionSpacer;
         public Transform magicSpacer;
+        public Transform itemSpacer;
         public GameObject actionButton;
         private List<GameObject> _actionButtons = new();
         
@@ -73,7 +77,7 @@ namespace State_Machines
         private void Start()
         {
             battleState = PerformAction.WAIT;
-            // heroesInBattle.AddRange(GameObject.FindGameObjectsWithTag("Hero"));
+            heroesAfterBattle = heroesInBattle;
             for (int i = 0; i < heroesInBattle.Count; i++)
             {
                 HeroStateMachine statsHolder = heroesInBattle[i].GetComponent<HeroStateMachine>();
@@ -83,7 +87,9 @@ namespace State_Machines
             heroInput = HeroGUI.ACTIVATE;
             attackPanel.SetActive(false);
             magicPanel.SetActive(false);
+            itemPanel.SetActive(false);
             enemySelectPanel.SetActive(false);
+            heroSelectionPanel.SetActive(false);
             EnemyButtons();
         }
 
@@ -127,7 +133,15 @@ namespace State_Machines
                     {
                         if (performActionsList[0].isDefending)
                         {
-                            // TODO Add temporary defence.
+                            performer.GetComponent<HeroStateMachine>().currentTurnState =
+                                HeroStateMachine.TurnState.DEFENDING;
+                        }
+                        else if (performActionsList[0].isUsingItem)
+                        {
+                            HeroStateMachine HSM = performer.GetComponent<HeroStateMachine>();
+                            HSM.enemyToAttack = performActionsList[0].TargetObject;
+                            HSM.chosenItem = _heroChoice.itemToUse;
+                            HSM.currentTurnState = HeroStateMachine.TurnState.ITEM;
                         }
                         else
                         {
@@ -155,7 +169,11 @@ namespace State_Machines
                     {
                         heroesInBattle[i].GetComponent<HeroStateMachine>().currentTurnState = HeroStateMachine.TurnState.WAITING;
                     }
-
+                    for (int i = 0; i < GameManager.Instance.updatedHeroes.Count; i++)
+                    {
+                        GameManager.Instance.updatedHeroes[i] = heroesAfterBattle[i].GetComponent<HeroStateMachine>().hero;
+                    }
+                    SaveController.Instance.SaveBattle();
                     GameManager.Instance.gameState = GameManager.GameStates.WORLD;
                     GameManager.Instance.enemiesToBattle.Clear();
                     GameManager.Instance.LoadSceneAfterBattle();
@@ -205,11 +223,11 @@ namespace State_Machines
             foreach (GameObject enemy in enemiesInBattle)
             {
                 GameObject newButton = Instantiate(enemyButton, spacer, false) as GameObject;
-                EnemySelectButton button = newButton.GetComponent<EnemySelectButton>();
+                SelectButton button = newButton.GetComponent<SelectButton>();
                 EnemyStateMachine currentEnemy = enemy.GetComponent<EnemyStateMachine>();
                 TextMeshProUGUI buttonText = newButton.GetComponentInChildren<TextMeshProUGUI>();
                 buttonText.text = currentEnemy.enemy.ActorName;
-                button.enemyPrefab = enemy;
+                button.prefab = enemy;
                 _enemyButtons.Add(newButton);
             }
         }
@@ -224,6 +242,7 @@ namespace State_Machines
             hero.Attack = 
                 Mathf.Max(Mathf.Floor(hero.strength/4), 1f) * hero.ActorAttacks[0].attackDamage;
             _heroChoice.isDefending = false;
+            _heroChoice.isUsingItem = false;
             attackPanel.SetActive(false);
             enemySelectPanel.SetActive(true);
         }
@@ -244,6 +263,7 @@ namespace State_Machines
                 Mathf.Max(Mathf.Floor(hero.wisdom/4), 1f) * chosenMagicAttack.attackDamage;
             hero.CurrentMp -= chosenMagicAttack.attackCost;
             _heroChoice.isDefending = false;
+            _heroChoice.isUsingItem = false;
             magicPanel.SetActive(false);
             enemySelectPanel.SetActive(true);
         }
@@ -251,22 +271,31 @@ namespace State_Machines
         public void DefendInput()
         {
             _heroChoice.Attacker = heroesToManage[0].name;
-            _heroChoice.AttackerObject = null;
+            _heroChoice.AttackerObject = heroesToManage[0];
             _heroChoice.Type = "Hero";
             _heroChoice.chosenAttack = null;
             _heroChoice.isDefending = true;
+            _heroChoice.isUsingItem = false;
             attackPanel.SetActive(false);
             heroInput = HeroGUI.DONE;
         }
 
-        public void ItemInput()
+        public void ItemInput(int itemID)
         {
-            
+            _heroChoice.Attacker = heroesToManage[0].name;
+            _heroChoice.AttackerObject = heroesToManage[0];
+            _heroChoice.Type = "Hero";
+            _heroChoice.chosenAttack = null;
+            _heroChoice.isDefending = false;
+            _heroChoice.isUsingItem = true;
+            _heroChoice.itemToUse = itemID;
+            attackPanel.SetActive(false);
+            heroSelectionPanel.SetActive(true);
         }
 
-        public void EnemySelectionInput(GameObject chosenEnemy)
+        public void SelectionInput(GameObject chosenActor)
         {
-            _heroChoice.TargetObject = chosenEnemy;
+            _heroChoice.TargetObject = chosenActor;
             heroInput = HeroGUI.DONE;
         }
 
@@ -284,6 +313,8 @@ namespace State_Machines
             enemySelectPanel.SetActive(false);
             attackPanel.SetActive(false);
             magicPanel.SetActive(false);
+            itemPanel.SetActive(false);
+            heroSelectionPanel.SetActive(false);
             foreach (var attackButton in _actionButtons)
             {
                 Destroy(attackButton);
@@ -325,12 +356,28 @@ namespace State_Machines
             defendButtonText.text = "Defend";
             defendButton.GetComponent<Button>().onClick.AddListener(() => DefendInput());
             _actionButtons.Add(defendButton);
-            
-            GameObject itemButton = Instantiate(actionButton, actionSpacer, false);
-            TextMeshProUGUI itemButtonText = itemButton.transform.GetComponentInChildren<TextMeshProUGUI>();
-            itemButtonText.text = "Item";
-            itemButton.GetComponent<Button>().onClick.AddListener(() => ItemInput());
-            _actionButtons.Add(itemButton);
+
+            if (GameManager.Instance.availableItems.Count >= 1)
+            {
+                GameObject itemButton = Instantiate(actionButton, actionSpacer, false);
+                TextMeshProUGUI itemButtonText = itemButton.transform.GetComponentInChildren<TextMeshProUGUI>();
+                itemButtonText.text = "Item";
+                itemButton.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    attackPanel.SetActive(false);
+                    itemPanel.SetActive(true);
+                    foreach (InventorySaveData item in GameManager.Instance.availableItems)
+                    {
+                        GameObject itemButton = Instantiate(actionButton, itemSpacer, false);
+                        TextMeshProUGUI itemText = itemButton.transform.GetComponentInChildren<TextMeshProUGUI>();
+                        itemText.text = GameManager.Instance.GetComponentInChildren<ItemDictionary>()
+                            .itemPrefabs[item.itemID].itemName;
+                        itemButton.GetComponent<Button>().onClick.AddListener(() => ItemInput(item.itemID));
+                        _actionButtons.Add(itemButton);
+                    }
+                });
+                _actionButtons.Add(itemButton);
+            }
         }
 
         private IEnumerator NotEnoughMagic()

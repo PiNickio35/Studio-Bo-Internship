@@ -20,7 +20,7 @@ namespace State_Machines
         public TurnState currentTurnState;
     
         private float _currentCooldown;
-        private float _maxCooldown = 10f;
+        [SerializeField] private float maxCooldown = 10f;
     
         private Vector3 _startPosition;
         [SerializeField] private GameObject selector;
@@ -86,7 +86,7 @@ namespace State_Machines
         private void UpdateProgress()
         {
             _currentCooldown += Time.deltaTime;
-            if (_currentCooldown >= _maxCooldown)
+            if (_currentCooldown >= maxCooldown)
             {
                 currentTurnState = TurnState.CHOOSEACTION;
             }
@@ -146,7 +146,7 @@ namespace State_Machines
 
         public void TakeDamage(float damage)
         {
-            damage = Mathf.Max(damage - enemy.Defence, 0);
+            damage = Mathf.Max(damage - enemy.Defence, 1);
             enemy.CurrentHp -= damage;
             if (enemy.CurrentHp <= 0)
             {

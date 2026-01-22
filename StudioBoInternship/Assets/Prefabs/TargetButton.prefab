@@ -261,8 +261,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: -4365516185677530498}
-        m_TargetAssemblyTypeName: EnemySelectButton, Assembly-CSharp
-        m_MethodName: SelectEnemy
+        m_TargetAssemblyTypeName: SelectButton, Assembly-CSharp
+        m_MethodName: Select
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -341,4 +341,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ffcc64e7c5cc7549958228e97171b8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySelectButton
-  enemyPrefab: {fileID: 0}
+  prefab: {fileID: 0}

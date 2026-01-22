@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
+    public static InventoryController Instance;
+    
     private ItemDictionary _itemDictionary;
 
     [SerializeField] private GameObject inventoryPanel;
@@ -13,6 +15,14 @@ public class InventoryController : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         _itemDictionary = FindFirstObjectByType<ItemDictionary>();
     }
 
