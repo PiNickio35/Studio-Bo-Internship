@@ -111,10 +111,10 @@ public class GameManager : MonoBehaviour
 
     private void RandomEncounter()
     {
-        if (Random.Range(0, 1000) <= 10)
-        {
-            gotAttacked = true;
-        }
+        // if (Random.Range(0, 1000) <= 10)
+        // {
+        //     gotAttacked = true;
+        // }
     }
 
     private void StartBattle()
@@ -178,8 +178,8 @@ public class GameManager : MonoBehaviour
                         updatedHeroes[i].BaseHp = levelLibrary.SonoHp[level];
                         updatedHeroes[i].BaseMp = levelLibrary.SonoMp[level];
                         updatedHeroes[i].Defence = levelLibrary.SonoDefence[level];
-                        if (levelLibrary.SonoAttacks.ContainsKey(i)) updatedHeroes[i].ActorAttacks[0] = levelLibrary.SonoAttacks[level];
-                        if (levelLibrary.SonoMagic.ContainsKey(i)) updatedHeroes[i].magicAttacks.Add(levelLibrary.SonoMagic[level]);
+                        if (levelLibrary.SonoAttacks.TryGetValue(level, out var attack)) updatedHeroes[i].ActorAttacks[0] = attack;
+                        if (levelLibrary.SonoMagic.TryGetValue(level, out var value)) updatedHeroes[i].magicAttacks.Add(value);
                         updatedHeroes[i].strength = levelLibrary.SonoStrength[level];
                         updatedHeroes[i].agility = levelLibrary.SonoAgility[level];
                         updatedHeroes[i].wisdom = levelLibrary.SonoWisdom[level];
@@ -188,8 +188,8 @@ public class GameManager : MonoBehaviour
                         updatedHeroes[i].BaseHp = levelLibrary.MayHp[level];
                         updatedHeroes[i].BaseMp = levelLibrary.MayMp[level];
                         updatedHeroes[i].Defence = levelLibrary.MayDefence[level];
-                        if (levelLibrary.MayAttacks.ContainsKey(i)) updatedHeroes[i].ActorAttacks[0] = levelLibrary.MayAttacks[level];
-                        if (levelLibrary.MayMagic.ContainsKey(i)) updatedHeroes[i].magicAttacks.Add(levelLibrary.MayMagic[level]);
+                        if (levelLibrary.MayAttacks.TryGetValue(level, out var mayAttack)) updatedHeroes[i].ActorAttacks[0] = mayAttack;
+                        if (levelLibrary.MayMagic.TryGetValue(level, out var value1)) updatedHeroes[i].magicAttacks.Add(value1);
                         updatedHeroes[i].strength = levelLibrary.MayStrength[level];
                         updatedHeroes[i].agility = levelLibrary.MayAgility[level];
                         updatedHeroes[i].wisdom = levelLibrary.MayWisdom[level];
@@ -198,7 +198,7 @@ public class GameManager : MonoBehaviour
                         updatedHeroes[i].BaseHp = levelLibrary.AndaniHp[level];
                         updatedHeroes[i].BaseMp = levelLibrary.AndaniMp[level];
                         updatedHeroes[i].Defence = levelLibrary.AndaniDefence[level];
-                        if (levelLibrary.AndaniAttacks.ContainsKey(i)) updatedHeroes[i].ActorAttacks[0] = levelLibrary.AndaniAttacks[level];
+                        if (levelLibrary.AndaniAttacks.TryGetValue(level, out var andaniAttack)) updatedHeroes[i].ActorAttacks[0] = andaniAttack;
                         updatedHeroes[i].strength = levelLibrary.AndaniStrength[level];
                         updatedHeroes[i].agility = levelLibrary.AndaniAgility[level];
                         updatedHeroes[i].wisdom = levelLibrary.AndaniWisdom[level];

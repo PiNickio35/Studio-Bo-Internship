@@ -96,14 +96,17 @@ namespace State_Machines
                         }
                     }
                     this.gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
-                    if (BattleStateMachine.Instance.heroesToManage[0] == this.gameObject)
+                    if (BattleStateMachine.Instance.heroesToManage.Count > 0)
                     {
-                        BattleStateMachine.Instance.heroesToManage.Remove(this.gameObject);
-                        BattleStateMachine.Instance.heroInput = BattleStateMachine.HeroGUI.ACTIVATE;
-                    }
-                    else
-                    {
-                        BattleStateMachine.Instance.heroesToManage.Remove(this.gameObject);
+                        if (BattleStateMachine.Instance.heroesToManage[0] == this.gameObject)
+                        {
+                            BattleStateMachine.Instance.heroesToManage.Remove(this.gameObject);
+                            BattleStateMachine.Instance.heroInput = BattleStateMachine.HeroGUI.ACTIVATE;
+                        }
+                        else
+                        {
+                            BattleStateMachine.Instance.heroesToManage.Remove(this.gameObject);
+                        }
                     }
                     BattleStateMachine.Instance.battleState = BattleStateMachine.PerformAction.CHECKALIVE;
                     _isAlive = false;
@@ -138,6 +141,7 @@ namespace State_Machines
             yield return new WaitForSeconds(0.5f);
         
             DoDamage();
+            UpdateHeroPanel();
 
             while (MoveTowardsTarget(_startPosition)) yield return null;
 

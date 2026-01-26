@@ -2572,7 +2572,6 @@ GameObject:
   - component: {fileID: 1670678713}
   - component: {fileID: 1670678716}
   - component: {fileID: 1670678715}
-  - component: {fileID: 1670678714}
   m_Layer: 5
   m_Name: LevelUpPanel
   m_TagString: Untagged
@@ -2600,62 +2599,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1670678714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1670678712}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1670678715}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 991566350}
-        m_TargetAssemblyTypeName: State_Machines.BattleStateMachine, Assembly-CSharp
-        m_MethodName: CallMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1670678715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3085,6 +3028,14 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 534361559
       objectReference: {fileID: 0}
+    - target: {fileID: 6913187029052932754, guid: 0ab942a87dd9b1042ba25ea75eb7b98d, type: 3}
+      propertyPath: m_SortingLayer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6913187029052932754, guid: 0ab942a87dd9b1042ba25ea75eb7b98d, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1670484291
+      objectReference: {fileID: 0}
     - target: {fileID: 8051784334047400677, guid: 0ab942a87dd9b1042ba25ea75eb7b98d, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.8
@@ -3177,6 +3128,11 @@ PrefabInstance:
 --- !u!1 &1990485712 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9058904155098505130, guid: 0ab942a87dd9b1042ba25ea75eb7b98d, type: 3}
+  m_PrefabInstance: {fileID: 1990485711}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1990485713 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2078529169954195074, guid: 0ab942a87dd9b1042ba25ea75eb7b98d, type: 3}
   m_PrefabInstance: {fileID: 1990485711}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2033958387
@@ -3646,6 +3602,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hero 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9173984134224409114, guid: 0ab942a87dd9b1042ba25ea75eb7b98d, type: 3}
+      propertyPath: selector
+      value: 
+      objectReference: {fileID: 1990485713}
     - target: {fileID: 9173984134224409114, guid: 0ab942a87dd9b1042ba25ea75eb7b98d, type: 3}
       propertyPath: heroPanel
       value: 

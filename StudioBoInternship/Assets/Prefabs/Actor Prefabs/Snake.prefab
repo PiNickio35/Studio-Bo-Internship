@@ -107,11 +107,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
   enemy:
     ActorName: Snake
-    BaseHp: 30
-    CurrentHp: 30
+    BaseHp: 20
+    CurrentHp: 20
     BaseMp: 0
     CurrentMp: 0
-    Attack: 15
+    Attack: 10
     Defence: 2
     ActorAttacks:
     - {fileID: 11400000, guid: 03d6a9da44f004f43bd3de437d7a9a40, type: 2}

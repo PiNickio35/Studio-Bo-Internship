@@ -260,7 +260,7 @@ namespace State_Machines
         public void MagicInput(BaseAttack chosenMagicAttack)
         {
             BaseHero hero = heroesToManage[0].GetComponent<HeroStateMachine>().hero;
-            if (chosenMagicAttack.attackCost < hero.CurrentMp)
+            if (chosenMagicAttack.attackCost > hero.CurrentMp)
             {
                 StartCoroutine(NotEnoughMagic());
                 return;
@@ -271,7 +271,7 @@ namespace State_Machines
             _heroChoice.chosenAttack = chosenMagicAttack;
             hero.Attack = 
                 Mathf.Max(Mathf.Floor(hero.wisdom/4), 1f) * chosenMagicAttack.attackDamage;
-            hero.CurrentMp -= chosenMagicAttack.attackCost;
+            hero.CurrentMp = Mathf.Max(hero.CurrentMp - chosenMagicAttack.attackCost, 0);
             _heroChoice.isDefending = false;
             _heroChoice.isUsingItem = false;
             magicPanel.SetActive(false);
