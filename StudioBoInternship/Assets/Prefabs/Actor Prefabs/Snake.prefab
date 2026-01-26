@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3835367173414584443}
   - component: {fileID: 5079938761486833084}
   m_Layer: 0
-  m_Name: Larva
+  m_Name: Snake
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 2275809482824616478, guid: 335c566f11cc1504f85a5a66eb06fc80, type: 3}
+  m_Sprite: {fileID: 2808559760237250731, guid: 048b8aa21108ac04c89365e45b576282, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -106,18 +106,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
   enemy:
-    ActorName: Larva
-    BaseHp: 10
-    CurrentHp: 10
+    ActorName: Snake
+    BaseHp: 30
+    CurrentHp: 30
     BaseMp: 0
     CurrentMp: 0
-    Attack: 5
-    Defence: 0
+    Attack: 15
+    Defence: 2
     ActorAttacks:
-    - {fileID: 11400000, guid: 21859d29ad87ffb4ca288751207c7cdb, type: 2}
-    experienceGiven: 15
+    - {fileID: 11400000, guid: 03d6a9da44f004f43bd3de437d7a9a40, type: 2}
+    experienceGiven: 50
   currentTurnState: 0
-  maxCooldown: 7.5
+  maxCooldown: 6
   selector: {fileID: 3836135166427871924}
   heroToAttack: {fileID: 0}
 --- !u!1001 &6308086349353143097

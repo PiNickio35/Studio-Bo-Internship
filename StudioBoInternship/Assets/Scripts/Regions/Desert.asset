@@ -17,3 +17,6 @@ MonoBehaviour:
   battleBackground: {fileID: 21300000, guid: 6edf4ae6a6bb308439d7af78e1d57f1f, type: 3}
   possibleEnemies:
   - {fileID: 7905279685538133007, guid: 75eed38c55054054cbb533297bfe8ee6, type: 3}
+  - {fileID: 7905279685538133007, guid: 75eed38c55054054cbb533297bfe8ee6, type: 3}
+  - {fileID: 7905279685538133007, guid: 75eed38c55054054cbb533297bfe8ee6, type: 3}
+  - {fileID: 7905279685538133007, guid: 9b5620b9be4f74343bc17eb400e667d2, type: 3}

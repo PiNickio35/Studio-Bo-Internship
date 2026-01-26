@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7429fec5bf2873d4681a2d3262b0493e, type: 3}
-  m_Name: Blizzard
+  m_Name: Meteor
   m_EditorClassIdentifier: Assembly-CSharp::Base_Classes.BaseAttack
-  attackName: Blizzard
-  attackDamage: 30
-  attackCost: 10
+  attackName: Meteor
+  attackDamage: 100
+  attackCost: 40

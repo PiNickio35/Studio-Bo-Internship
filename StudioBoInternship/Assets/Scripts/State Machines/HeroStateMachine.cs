@@ -113,7 +113,7 @@ namespace State_Machines
 
         private void UpdateProgressBar()
         {
-            _currentCooldown += Time.deltaTime + (hero.agility/1000);
+            _currentCooldown += Time.deltaTime + (hero.agility/10000);
             progressBar.transform.localScale = new Vector3(Mathf.Clamp((_currentCooldown / _maxCooldown), 0, 1f),
                 progressBar.transform.localScale.y, progressBar.transform.localScale.z);
             if (_currentCooldown >= _maxCooldown)

@@ -175,33 +175,33 @@ public class GameManager : MonoBehaviour
                 switch (candidate)
                 {
                     case "Sono":
-                        updatedHeroes[i].BaseHp = levelLibrary.sonoHp[level];
-                        updatedHeroes[i].BaseMp = levelLibrary.sonoMp[level];
-                        updatedHeroes[i].Defence = levelLibrary.sonoDefence[level];
-                        if (levelLibrary.sonoAttacks[level] != null) updatedHeroes[i].ActorAttacks[0] = levelLibrary.sonoAttacks[level];
-                        if (levelLibrary.sonoMagic[level] != null) updatedHeroes[i].magicAttacks.Add(levelLibrary.sonoMagic[level]);
-                        updatedHeroes[i].strength = levelLibrary.sonoStrength[level];
-                        updatedHeroes[i].agility = levelLibrary.sonoAgility[level];
-                        updatedHeroes[i].wisdom = levelLibrary.sonoWisdom[level];
+                        updatedHeroes[i].BaseHp = levelLibrary.SonoHp[level];
+                        updatedHeroes[i].BaseMp = levelLibrary.SonoMp[level];
+                        updatedHeroes[i].Defence = levelLibrary.SonoDefence[level];
+                        if (levelLibrary.SonoAttacks.ContainsKey(i)) updatedHeroes[i].ActorAttacks[0] = levelLibrary.SonoAttacks[level];
+                        if (levelLibrary.SonoMagic.ContainsKey(i)) updatedHeroes[i].magicAttacks.Add(levelLibrary.SonoMagic[level]);
+                        updatedHeroes[i].strength = levelLibrary.SonoStrength[level];
+                        updatedHeroes[i].agility = levelLibrary.SonoAgility[level];
+                        updatedHeroes[i].wisdom = levelLibrary.SonoWisdom[level];
                         break;
                     case "May":
-                        updatedHeroes[i].BaseHp = levelLibrary.mayHp[level];
-                        updatedHeroes[i].BaseMp = levelLibrary.mayMp[level];
-                        updatedHeroes[i].Defence = levelLibrary.mayDefence[level];
-                        if (levelLibrary.mayAttacks[level] != null) updatedHeroes[i].ActorAttacks[0] = levelLibrary.mayAttacks[level];
-                        if (levelLibrary.mayMagic[level] != null) updatedHeroes[i].magicAttacks.Add(levelLibrary.mayMagic[level]);
-                        updatedHeroes[i].strength = levelLibrary.mayStrength[level];
-                        updatedHeroes[i].agility = levelLibrary.mayAgility[level];
-                        updatedHeroes[i].wisdom = levelLibrary.mayWisdom[level];
+                        updatedHeroes[i].BaseHp = levelLibrary.MayHp[level];
+                        updatedHeroes[i].BaseMp = levelLibrary.MayMp[level];
+                        updatedHeroes[i].Defence = levelLibrary.MayDefence[level];
+                        if (levelLibrary.MayAttacks.ContainsKey(i)) updatedHeroes[i].ActorAttacks[0] = levelLibrary.MayAttacks[level];
+                        if (levelLibrary.MayMagic.ContainsKey(i)) updatedHeroes[i].magicAttacks.Add(levelLibrary.MayMagic[level]);
+                        updatedHeroes[i].strength = levelLibrary.MayStrength[level];
+                        updatedHeroes[i].agility = levelLibrary.MayAgility[level];
+                        updatedHeroes[i].wisdom = levelLibrary.MayWisdom[level];
                         break;
                     case "Andani":
-                        updatedHeroes[i].BaseHp = levelLibrary.andaniHp[level];
-                        updatedHeroes[i].BaseMp = levelLibrary.andaniMp[level];
-                        updatedHeroes[i].Defence = levelLibrary.andaniDefence[level];
-                        if (levelLibrary.andaniAttacks[level] != null) updatedHeroes[i].ActorAttacks[0] = levelLibrary.andaniAttacks[level];
-                        updatedHeroes[i].strength = levelLibrary.andaniStrength[level];
-                        updatedHeroes[i].agility = levelLibrary.andaniAgility[level];
-                        updatedHeroes[i].wisdom = levelLibrary.andaniWisdom[level];
+                        updatedHeroes[i].BaseHp = levelLibrary.AndaniHp[level];
+                        updatedHeroes[i].BaseMp = levelLibrary.AndaniMp[level];
+                        updatedHeroes[i].Defence = levelLibrary.AndaniDefence[level];
+                        if (levelLibrary.AndaniAttacks.ContainsKey(i)) updatedHeroes[i].ActorAttacks[0] = levelLibrary.AndaniAttacks[level];
+                        updatedHeroes[i].strength = levelLibrary.AndaniStrength[level];
+                        updatedHeroes[i].agility = levelLibrary.AndaniAgility[level];
+                        updatedHeroes[i].wisdom = levelLibrary.AndaniWisdom[level];
                         break;
                     default:
                         break;

@@ -50,6 +50,7 @@ namespace State_Machines
         public GameObject magicPanel;
         public GameObject itemPanel;
         public GameObject losePanel;
+        public GameObject levelUpPanel;
 
         [SerializeField] private GameObject noMagicPanel;
         [SerializeField] private SpriteRenderer battleBackground;
@@ -410,6 +411,7 @@ namespace State_Machines
                 hero.experience = 0;
                 hero.level++;
                 GameManager.Instance.LevelUp(hero.ActorName, hero.level);
+                levelUpPanel.SetActive(true);
             }
         }
 
