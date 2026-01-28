@@ -1,5 +1,6 @@
 References
 
+dmochas. (2021, January 6). Text/Dialogue Bleeps Pack [Sound]. Itch. https://dmochas-assets.itch.io/dmochas-bleeps-pack
 Dryoma. (2022, May 14). Footsteps Sounds. Itch. https://dryoma.itch.io/footsteps-sounds
 eyeless_artist. (2020, July 11). 3 pixel backgrounds [Asset pack]. Itch. https://eyeless-artist.itch.io/3-pixel-backgrounds
 Game Code Library. (2025, December 18). Top Down Tutorial Series - Unity 2D [Course]. YouTube. https://www.youtube.com/playlist?list=PLaaFfzxy_80HtVvBnpK_IjSC8_Y9AOhuP

@@ -83,7 +83,7 @@ namespace State_Machines
         private void Start()
         {
             battleState = PerformAction.WAIT;
-            heroesAfterBattle = heroesInBattle;
+            heroesAfterBattle = new List<GameObject>(heroesInBattle);
             for (int i = 0; i < heroesInBattle.Count; i++)
             {
                 HeroStateMachine statsHolder = heroesInBattle[i].GetComponent<HeroStateMachine>();
@@ -184,7 +184,8 @@ namespace State_Machines
                     SaveController.Instance.SaveBattle();
                     GameManager.Instance.gameState = GameManager.GameStates.WORLD;
                     GameManager.Instance.enemiesToBattle.Clear();
-                    GameManager.Instance.LoadSceneAfterBattle();
+                    if (!GameManager.Instance.isFinalBattle) GameManager.Instance.LoadSceneAfterBattle();
+                    else GameManager.Instance.LoadFinalScene();
                     battleState = PerformAction.WAIT;
                     break;
                 case PerformAction.LOSE:

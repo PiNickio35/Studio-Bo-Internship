@@ -24,6 +24,6 @@ MonoBehaviour:
   - Lucky for Africa, these heroes weren't going to let that happen.
   autoProgressLines: 
   autoProgressDelay: 1.5
-  typingSpeed: 0.15
-  voiceSound: {fileID: 8300000, guid: e14193bbac441614c9aa3c0037fd3b2e, type: 3}
-  voicePitch: 0.5
+  typingSpeed: 0.1
+  voiceSound: {fileID: 8300000, guid: 22b7532ea2dcc604ca589db6f0e89da1, type: 3}
+  voicePitch: 1

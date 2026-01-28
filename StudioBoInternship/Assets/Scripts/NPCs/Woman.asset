@@ -18,8 +18,8 @@ MonoBehaviour:
   - You want to stop the warlock?!
   - No shot!
   - Loser!
-  autoProgressLines: 000001
+  autoProgressLines: 
   autoProgressDelay: 0.5
   typingSpeed: 0.05
-  voiceSound: {fileID: 8300000, guid: e14193bbac441614c9aa3c0037fd3b2e, type: 3}
-  voicePitch: 1.25
+  voiceSound: {fileID: 8300000, guid: d25f924d0ddbde34f9ae9825e5b094c0, type: 3}
+  voicePitch: 1

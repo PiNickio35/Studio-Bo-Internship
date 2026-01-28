@@ -17,7 +17,7 @@ MonoBehaviour:
   dialogueLines:
   - Good luck on your adventure!
   - You've got this!
-  autoProgressLines: 0100
+  autoProgressLines: 
   autoProgressDelay: 1.5
   typingSpeed: 0.05
   voiceSound: {fileID: 8300000, guid: e14193bbac441614c9aa3c0037fd3b2e, type: 3}

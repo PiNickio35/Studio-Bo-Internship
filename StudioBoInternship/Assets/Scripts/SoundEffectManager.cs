@@ -9,8 +9,10 @@ public class SoundEffectManager : MonoBehaviour
     private static AudioSource _audioSource;
     private static AudioSource _randomPitchAudioSource;
     private static AudioSource _voiceAudioSource;
+    private static AudioSource _musicAudioSource;
     private static SoundEffectLibrary _soundEffectLibrary;
     public Slider sfxSlider;
+    public Slider musicSfxSlider;
 
     private void Awake()
     {
@@ -21,6 +23,7 @@ public class SoundEffectManager : MonoBehaviour
             _audioSource = audioSources[0];
             _randomPitchAudioSource = audioSources[1];
             _voiceAudioSource = audioSources[2];
+            _musicAudioSource = audioSources[3];
             _soundEffectLibrary = GetComponent<SoundEffectLibrary>();
         }
         else
@@ -32,9 +35,14 @@ public class SoundEffectManager : MonoBehaviour
     private void Start()
     {
         sfxSlider.onValueChanged.AddListener(delegate { OnValueChanged(); });
-        foreach (AudioSource audioSource in GetComponents<AudioSource>())
+        musicSfxSlider.onValueChanged.AddListener(delegate { OnMusicValueChanged(); });
+        for (int i = 0; i < GetComponents<AudioSource>().Length; i++) 
         {
-            audioSource.volume = sfxSlider.value;
+            GetComponents<AudioSource>()[i].volume = sfxSlider.value;
+            if (i == 3)
+            {
+                GetComponents<AudioSource>()[i].volume = musicSfxSlider.value;
+            }
         }
     }
 
@@ -67,9 +75,19 @@ public class SoundEffectManager : MonoBehaviour
         _randomPitchAudioSource.volume = volume;
         _voiceAudioSource.volume = volume;
     }
+    
+    public static void SetMusicVolume(float volume)
+    {
+        _musicAudioSource.volume = volume;
+    }
 
     public void OnValueChanged()
     {
         SetVolume(sfxSlider.value);
+    }
+    
+    public void OnMusicValueChanged()
+    {
+        SetMusicVolume(musicSfxSlider.value);
     }
 }

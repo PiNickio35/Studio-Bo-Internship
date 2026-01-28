@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49b631cb9c57b794da79a2ee308a201b, type: 3}
+  m_Name: Ending
+  m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
+  npcName: Ending
+  npcPortrait: {fileID: -4738311060596351350, guid: 3c677ff5533a9164a8a4f330eaea5c28, type: 3}
+  dialogueLines:
+  - And so, evil was conquered and light prevailed.
+  - 'It was a long and arduous journey. '
+  - 'But it was all made worth it. '
+  - Soon, the sounds of nature returned to the savannah.
+  - The party returned home and were celebrated as heroes.
+  - The sun shined brightly once again, but...
+  - Light always casts a shadow.
+  - But those shadows wouldn't show themselves quite yet.
+  - The end.
+  autoProgressLines: 
+  autoProgressDelay: 1.5
+  typingSpeed: 0.1
+  voiceSound: {fileID: 8300000, guid: 22b7532ea2dcc604ca589db6f0e89da1, type: 3}
+  voicePitch: 1

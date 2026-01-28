@@ -47,6 +47,11 @@ public class GameManager : MonoBehaviour
     }
     public GameStates gameState;
 
+    public bool isFinalBattle;
+    
+    [SerializeField] private GameObject finalBoss;
+    [SerializeField] private BaseRegion finalRegion;
+
     private void Awake()
     {
         if (Instance == null)
@@ -98,6 +103,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneToLoad);
     }
 
+    public void LoadFinalScene()
+    {
+        SceneManager.LoadScene("EndingScene");
+    }
+
     public void LoadSceneAfterBattle()
     {
         _fadeAnim.Play("FadeToMad");
@@ -111,15 +121,28 @@ public class GameManager : MonoBehaviour
 
     private void RandomEncounter()
     {
-        // if (Random.Range(0, 1000) <= 10)
-        // {
-        //     gotAttacked = true;
-        // }
+        if (Random.Range(0, 1000) <= 10)
+        {
+            gotAttacked = true;
+        }
     }
 
     private void StartBattle()
     {
         gameObject.GetComponent<SaveController>().SaveGame();
+        if (isFinalBattle)
+        {
+            enemyAmount = 1;
+            enemiesToBattle.Add(finalBoss);
+            availableItems = InventoryController.Instance.GetInventoryItems();
+            lastPlayerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+            nextPlayerPosition = lastPlayerPosition;
+            _fadeAnim.Play("FadeToLaugh");
+            StartCoroutine(DelayFadeLaugh());
+            isWalking = false;
+            gotAttacked = false;
+            return;
+        }
         enemyAmount = Random.Range(1, currentRegion.maxEnemies + 1);
         for (int i = 0; i < enemyAmount; i++)
         {
@@ -208,6 +231,13 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void InitiateFinalBattle()
+    {
+        isFinalBattle = true;
+        currentRegion = finalRegion;
+        gameState = GameStates.BATTLE;
     }
 
     public void QuitGame()

@@ -117,7 +117,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 21859d29ad87ffb4ca288751207c7cdb, type: 2}
     experienceGiven: 15
   currentTurnState: 0
-  maxCooldown: 7.5
+  maxCooldown: 10
   selector: {fileID: 3836135166427871924}
   heroToAttack: {fileID: 0}
 --- !u!1001 &6308086349353143097

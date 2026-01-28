@@ -28,7 +28,7 @@ namespace State_Machines
         [SerializeField] private GameObject selector;
     
         private float _currentCooldown;
-        private float _maxCooldown = 5f;
+        private float _maxCooldown = 7.5f;
 
         public GameObject enemyToAttack;
         private bool _actionStarted;

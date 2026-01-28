@@ -81,7 +81,7 @@ public class NPC : MonoBehaviour, IInteractable
         if (dialogueData.autoProgressLines.Length > _dialogueIndex && dialogueData.autoProgressLines[_dialogueIndex])
         {
             yield return new WaitForSeconds(dialogueData.autoProgressDelay);
-            NextLine();
+            GameManager.Instance.InitiateFinalBattle();
         }
     }
 

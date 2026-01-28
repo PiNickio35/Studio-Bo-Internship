@@ -8,6 +8,7 @@ public class SaveData
     public Vector3 playerPosition;
     public string mapBoundary;
     public float sliderVolume;
+    public float musicVolume;
     public List<InventorySaveData> inventorySaveData;
     public List<InventorySaveData> hotbarSaveData;
     public List<ChestSaveData> chestSaveData;

@@ -41,8 +41,6 @@ public class SaveController : MonoBehaviour
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-    
-    
 
     public void SaveGame()
     {
@@ -51,6 +49,7 @@ public class SaveController : MonoBehaviour
             playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position,
             mapBoundary = FindFirstObjectByType<CinemachineConfiner2D>().BoundingShape2D.gameObject.name,
             sliderVolume = SoundEffectManager.Instance.sfxSlider.value,
+            musicVolume = SoundEffectManager.Instance.musicSfxSlider.value,
             inventorySaveData = _inventoryController.GetInventoryItems(),
             chestSaveData = GetChestStates(),
             heroSaveData = GameManager.Instance.updatedHeroes
@@ -65,6 +64,7 @@ public class SaveController : MonoBehaviour
         {
             SaveData saveData = JsonUtility.FromJson<SaveData>(File.ReadAllText(_saveLocation));
             SoundEffectManager.Instance.sfxSlider.value = saveData.sliderVolume;
+            SoundEffectManager.Instance.musicSfxSlider.value = saveData.musicVolume;
             GameObject.FindGameObjectWithTag("Player").transform.position = saveData.playerPosition;
             FindFirstObjectByType<CinemachineConfiner2D>().BoundingShape2D = GameObject.Find(saveData.mapBoundary).GetComponent<PolygonCollider2D>();
             MapControllerManual.Instance?.HighlightArea(saveData.mapBoundary);
