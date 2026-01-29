@@ -1,5 +1,6 @@
 using System.Collections;
 using Base_Classes;
+using TMPro;
 using UnityEngine;
 
 namespace State_Machines
@@ -30,6 +31,8 @@ namespace State_Machines
         private float _animationSpeed = 10f;
         
         private bool _isAlive = true;
+
+        public GameObject damageText;
 
         private void Start()
         {
@@ -157,12 +160,21 @@ namespace State_Machines
         public void TakeDamage(float damage)
         {
             damage = Mathf.Max(damage - enemy.Defence, 1);
+            damageText.GetComponent<TMP_Text>().text = damage.ToString();
+            StartCoroutine(FlashDamage());
             enemy.CurrentHp -= damage;
             if (enemy.CurrentHp <= 0)
             {
                 enemy.CurrentHp = 0;
                 currentTurnState = TurnState.DEAD;
             }
+        }
+
+        private IEnumerator FlashDamage()
+        {
+            damageText.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            damageText.SetActive(false);
         }
     }
 }

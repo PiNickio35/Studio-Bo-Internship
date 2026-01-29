@@ -1,5 +1,6 @@
 using System.Collections;
 using Base_Classes;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -41,6 +42,8 @@ namespace State_Machines
 
         private HeroPanelStats stats;
         [SerializeField] private GameObject heroPanel;
+        
+        [SerializeField] private GameObject damageText;
 
         private void Start()
         {
@@ -247,6 +250,8 @@ namespace State_Machines
         public void TakeDamage(float damageAmount)
         {
             damageAmount = Mathf.Max(damageAmount - Mathf.Floor(hero.agility/8) - hero.Defence, 1);
+            damageText.GetComponentInChildren<TMP_Text>().text = damageAmount.ToString();
+            StartCoroutine(FlashDamage());
             hero.CurrentHp -= damageAmount;
             if (hero.CurrentHp <= 0)
             {
@@ -254,6 +259,13 @@ namespace State_Machines
                 currentTurnState = TurnState.DEAD;
             }
             UpdateHeroPanel();
+        }
+        
+        private IEnumerator FlashDamage()
+        {
+            damageText.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            damageText.SetActive(false);
         }
 
         private void DoDamage()

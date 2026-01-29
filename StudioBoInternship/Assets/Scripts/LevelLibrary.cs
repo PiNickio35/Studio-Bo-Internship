@@ -18,8 +18,8 @@ public class LevelLibrary : MonoBehaviour
     };
     public readonly Dictionary<int, float> SonoDefence = new()
     {
-        {1, 4}, {2, 5}, {3, 6}, {4, 7}, {5, 8}, {6, 9}, {7, 10}, {8,10}, {9, 11}, {10, 11}, {11, 12},
-        {12, 12}, {13, 13}, {14, 14}, {15, 15}, {16, 16}, {17, 17}, {18, 18}, {19, 19}, {20, 20}
+        {1, 2}, {2, 3}, {3, 3}, {4, 4}, {5, 4}, {6, 5}, {7, 5}, {8, 5}, {9, 6}, {10, 6}, {11, 6},
+        {12, 6}, {13, 7}, {14, 7}, {15, 8}, {16, 8}, {17, 9}, {18, 9}, {19, 10}, {20, 10}
     };
     public Dictionary<int, BaseAttack> SonoAttacks;
     public Dictionary<int, BaseAttack> SonoMagic;
@@ -50,8 +50,8 @@ public class LevelLibrary : MonoBehaviour
     };
     public readonly Dictionary<int, float> MayDefence = new()
     {
-        {1, 2}, {2, 2}, {3, 2}, {4, 3}, {5, 3}, {6, 4}, {7, 4}, {8,4}, {9, 5}, {10, 5}, {11, 6},
-        {12, 6}, {13, 7}, {14, 7}, {15, 8}, {16, 8}, {17, 9}, {18, 9}, {19, 10}, {20, 10}
+        {1, 1}, {2, 1}, {3, 1}, {4, 2}, {5, 2}, {6, 2}, {7, 2}, {8, 2}, {9, 3}, {10, 3}, {11, 3},
+        {12, 3}, {13, 4}, {14, 4}, {15, 4}, {16, 4}, {17, 5}, {18, 5}, {19, 5}, {20, 5}
     };
     public Dictionary<int, BaseAttack> MayAttacks;
     public Dictionary<int, BaseAttack> MayMagic;
@@ -82,8 +82,8 @@ public class LevelLibrary : MonoBehaviour
     };
     public readonly Dictionary<int, float> AndaniDefence = new()
     {
-        {1, 6}, {2, 8}, {3, 10}, {4, 12}, {5, 14}, {6, 16}, {7, 18}, {8,20}, {9, 22}, {10, 24}, {11, 26},
-        {12, 28}, {13, 30}, {14, 32}, {15, 34}, {16, 36}, {17, 37}, {18, 38}, {19, 39}, {20, 40}
+        {1, 3}, {2, 4}, {3, 5}, {4, 6}, {5, 7}, {6, 8}, {7, 9}, {8, 10}, {9, 11}, {10, 12}, {11, 13},
+        {12, 14}, {13, 15}, {14, 15}, {15, 15}, {16, 15}, {17, 15}, {18, 15}, {19, 15}, {20, 15}
     };
     public Dictionary<int, BaseAttack> AndaniAttacks;
     public readonly Dictionary<int, float> AndaniStrength = new()

@@ -93918,7 +93918,7 @@ MonoBehaviour:
     BaseMp: 5
     CurrentMp: 5
     Attack: 10
-    Defence: 4
+    Defence: 2
     ActorAttacks:
     - {fileID: 11400000, guid: 03d6a9da44f004f43bd3de437d7a9a40, type: 2}
     experience: 0
@@ -93934,7 +93934,7 @@ MonoBehaviour:
     BaseMp: 10
     CurrentMp: 10
     Attack: 2
-    Defence: 2
+    Defence: 1
     ActorAttacks:
     - {fileID: 11400000, guid: 21859d29ad87ffb4ca288751207c7cdb, type: 2}
     experience: 0
@@ -93951,7 +93951,7 @@ MonoBehaviour:
     BaseMp: 0
     CurrentMp: 0
     Attack: 6
-    Defence: 8
+    Defence: 3
     ActorAttacks:
     - {fileID: 11400000, guid: 03d6a9da44f004f43bd3de437d7a9a40, type: 2}
     experience: 0

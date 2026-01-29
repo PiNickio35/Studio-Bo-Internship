@@ -67,12 +67,15 @@ namespace State_Machines
 
         public int experiencePool;
 
+        [SerializeField] private List<GameObject> damageTexts;
+
         private void Awake()
         {
             Instance = this;
             for (int i = 0; i < GameManager.Instance.enemyAmount; i++)
             {
                 GameObject newEnemy = Instantiate(GameManager.Instance.enemiesToBattle[i], spawnPoints[i].position, Quaternion.identity);
+                newEnemy.GetComponent<EnemyStateMachine>().damageText = damageTexts[i];
                 newEnemy.name = newEnemy.GetComponent<EnemyStateMachine>().enemy.ActorName + " " + (i + 1);
                 newEnemy.GetComponent<EnemyStateMachine>().enemy.ActorName = newEnemy.name;
                 enemiesInBattle.Add(newEnemy);

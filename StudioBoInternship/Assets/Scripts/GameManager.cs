@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
     public enum GameStates
     {
         WORLD,
-        TOWN,
         BATTLE,
         IDLE
     }
@@ -87,8 +86,6 @@ public class GameManager : MonoBehaviour
                     gameState = GameStates.BATTLE;
                 }
                 break;
-            case GameStates.TOWN:
-                break;
             case GameStates.BATTLE:
                 StartBattle();
                 gameState = GameStates.IDLE;
@@ -116,6 +113,7 @@ public class GameManager : MonoBehaviour
 
     public void GoToMenu()
     {
+        gameState = GameStates.WORLD;
         SceneManager.LoadScene("MenuScene");
     }
 
