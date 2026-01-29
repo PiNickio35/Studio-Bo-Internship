@@ -10,19 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 49b631cb9c57b794da79a2ee308a201b, type: 3}
-  m_Name: Skeleton
+  m_Name: OldWoman
   m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
-  npcName: Skeleton
-  npcPortrait: {fileID: 21300000, guid: ce40333b438a96e4e8fc93cbc3bbe7a7, type: 3}
+  npcName: Old Woman
+  npcPortrait: {fileID: 21300000, guid: f8b72534b57ee8d4e841fb009c69f379, type: 3}
   dialogueLines:
-  - Don't attack!
-  - I'm a good guy!
-  - The shaman over there adopted me.
-  - I now eternally serve him and keep this place safe.
-  - It beats living in the dark if you ask me.
-  - Go light or whatever it is you guys say!
+  - I can't believe the world is going to end...
+  - We might as well make the most of the little time we have left.
+  - Have some of my famous stew. It will fill you right up.
   autoProgressLines: 
   autoProgressDelay: 1.5
   typingSpeed: 0.05
-  voiceSound: {fileID: 8300000, guid: 8da341156dfbcc941a35fa64c71bd026, type: 3}
+  voiceSound: {fileID: 8300000, guid: aabbdf5e7acb4ed46a463a7b1eb40276, type: 3}
   voicePitch: 1

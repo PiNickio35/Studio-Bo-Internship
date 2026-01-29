@@ -15,7 +15,11 @@ MonoBehaviour:
   npcName: Old Man
   npcPortrait: {fileID: 21300000, guid: 09c76fd2215a5034ba2e246c4a66f63e, type: 3}
   dialogueLines:
-  - Good luck on your adventure!
+  - You are the ones going out to defeat Zorbak, right?
+  - You have braver spirits than I.
+  - If you haven't already take the potion in the chest for your journey.
+  - 'You''ll find more of the chest, I''m sure, and you can use them in and out of
+    battle. '
   - You've got this!
   autoProgressLines: 
   autoProgressDelay: 1.5

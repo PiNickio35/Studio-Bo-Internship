@@ -17,7 +17,8 @@ MonoBehaviour:
   dialogueLines:
   - You want to stop the warlock?!
   - No shot!
-  - Loser!
+  - The world is ending!
+  - Everything will eclipsed in darkness!
   autoProgressLines: 
   autoProgressDelay: 0.5
   typingSpeed: 0.05
