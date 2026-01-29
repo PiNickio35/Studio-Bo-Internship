@@ -21,7 +21,7 @@ namespace State_Machines
             LOSE
         }
 
-        private int[] _levelThresholds = { 0, 100, 200, 400, 600, 800, 1000, 1200, 1500, 1800, 2200, 2600, 3000, 3500, 4000, 5000, 6000, 7000, 8000, 9000, 10000 };
+        private int[] _levelThresholds = { 0, 50, 100, 200, 300, 400, 500, 600, 750, 900, 1100, 1300, 1500, 1750, 2000, 2000, 2000, 2000, 2000, 2000, 2000 };
 
         public PerformAction battleState;
     
@@ -251,7 +251,7 @@ namespace State_Machines
             _heroChoice.Type = "Hero";
             _heroChoice.chosenAttack = hero.ActorAttacks[0];
             hero.Attack = 
-                Mathf.Max(Mathf.Floor(hero.strength/4), 1f) * hero.ActorAttacks[0].attackDamage;
+                Mathf.Max(Mathf.Floor(hero.strength/4), 1f) + hero.ActorAttacks[0].attackDamage;
             _heroChoice.isDefending = false;
             _heroChoice.isUsingItem = false;
             attackPanel.SetActive(false);
@@ -271,7 +271,7 @@ namespace State_Machines
             _heroChoice.Type = "Hero";
             _heroChoice.chosenAttack = chosenMagicAttack;
             hero.Attack = 
-                Mathf.Max(Mathf.Floor(hero.wisdom/4), 1f) * chosenMagicAttack.attackDamage;
+                Mathf.Max(Mathf.Floor(hero.wisdom/4), 1f) + chosenMagicAttack.attackDamage;
             hero.CurrentMp = Mathf.Max(hero.CurrentMp - chosenMagicAttack.attackCost, 0);
             _heroChoice.isDefending = false;
             _heroChoice.isUsingItem = false;

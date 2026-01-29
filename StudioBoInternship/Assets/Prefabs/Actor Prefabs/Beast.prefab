@@ -107,17 +107,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
   enemy:
     ActorName: Beast
-    BaseHp: 250
-    CurrentHp: 250
+    BaseHp: 200
+    CurrentHp: 200
     BaseMp: 0
     CurrentMp: 0
     Attack: 10
-    Defence: 15
+    Defence: 5
     ActorAttacks:
-    - {fileID: 11400000, guid: 26083502fce13f14d9a0384a6adf1823, type: 2}
+    - {fileID: 11400000, guid: 2b9bf0e0e96f4c748bf79751fcc5dd1c, type: 2}
     experienceGiven: 500
   currentTurnState: 0
-  maxCooldown: 9
+  maxCooldown: 12
   selector: {fileID: 3836135166427871924}
   heroToAttack: {fileID: 0}
 --- !u!1001 &6308086349353143097

@@ -107,17 +107,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
   enemy:
     ActorName: Mollusc
-    BaseHp: 25
-    CurrentHp: 25
+    BaseHp: 30
+    CurrentHp: 30
     BaseMp: 0
     CurrentMp: 0
     Attack: 15
-    Defence: 3
+    Defence: 2
     ActorAttacks:
     - {fileID: 11400000, guid: 03d6a9da44f004f43bd3de437d7a9a40, type: 2}
     experienceGiven: 75
   currentTurnState: 0
-  maxCooldown: 9
+  maxCooldown: 8
   selector: {fileID: 3836135166427871924}
   heroToAttack: {fileID: 0}
 --- !u!1001 &6308086349353143097

@@ -107,8 +107,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
   enemy:
     ActorName: Dragon
-    BaseHp: 100
-    CurrentHp: 100
+    BaseHp: 75
+    CurrentHp: 75
     BaseMp: 0
     CurrentMp: 0
     Attack: 10
@@ -117,7 +117,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: aeff2074df009eb41a8e9ac1a516b823, type: 2}
     experienceGiven: 1000
   currentTurnState: 0
-  maxCooldown: 12
+  maxCooldown: 13.5
   selector: {fileID: 3836135166427871924}
   heroToAttack: {fileID: 0}
 --- !u!1001 &6308086349353143097

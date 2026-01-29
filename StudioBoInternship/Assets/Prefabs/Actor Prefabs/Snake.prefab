@@ -112,12 +112,12 @@ MonoBehaviour:
     BaseMp: 0
     CurrentMp: 0
     Attack: 10
-    Defence: 2
+    Defence: 1
     ActorAttacks:
     - {fileID: 11400000, guid: 03d6a9da44f004f43bd3de437d7a9a40, type: 2}
     experienceGiven: 50
   currentTurnState: 0
-  maxCooldown: 8
+  maxCooldown: 9
   selector: {fileID: 3836135166427871924}
   heroToAttack: {fileID: 0}
 --- !u!1001 &6308086349353143097

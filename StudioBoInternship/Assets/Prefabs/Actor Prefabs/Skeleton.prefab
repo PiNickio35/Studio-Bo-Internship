@@ -107,17 +107,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
   enemy:
     ActorName: Skeleton
-    BaseHp: 25
-    CurrentHp: 25
+    BaseHp: 30
+    CurrentHp: 30
     BaseMp: 0
     CurrentMp: 0
     Attack: 10
-    Defence: 5
+    Defence: 4
     ActorAttacks:
     - {fileID: 11400000, guid: eed002f9f05e4a64fa1f9ef13fd36e2b, type: 2}
     experienceGiven: 100
   currentTurnState: 0
-  maxCooldown: 8
+  maxCooldown: 10
   selector: {fileID: 3836135166427871924}
   heroToAttack: {fileID: 0}
 --- !u!1001 &6308086349353143097

@@ -107,14 +107,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyStateMachine
   enemy:
     ActorName: T-Rex
-    BaseHp: 150
-    CurrentHp: 150
+    BaseHp: 100
+    CurrentHp: 100
     BaseMp: 0
     CurrentMp: 0
     Attack: 10
     Defence: 10
     ActorAttacks:
-    - {fileID: 11400000, guid: 9c094d364cbd8cb41bf30b2e02cdce5f, type: 2}
+    - {fileID: 11400000, guid: 26083502fce13f14d9a0384a6adf1823, type: 2}
     experienceGiven: 500
   currentTurnState: 0
   maxCooldown: 12
